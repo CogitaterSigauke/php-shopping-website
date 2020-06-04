@@ -1,5 +1,3 @@
-
-
 <?php
 
 $dbServername = "localhost";
@@ -9,12 +7,23 @@ $dbPassword = "";
 
 $dbName = "";
 
-$conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
+$conn = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
+// $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
 
-if($conn->connect_error){
-    die("Connection failed: " . $conn->connect_error);
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
 }
+
+/* print server version */
+printf("Server version: %s\n", mysqli_get_server_info($conn));
+
+/* close connection */
+// mysqli_close($conn);
 
 
 ?>
+
+<!--  -->

@@ -1,61 +1,40 @@
 <?php
-require_once('conn.php');
+require_once('connection.php');
 
 session_start();
 
-if(isset($_SESSION['login_user']) && isset($_SESSION['login_uid']) && isset($_SESSION['login_name'])){
+if(isset($_SESSION['login_buyer']) && isset($_SESSION['login_bid']) && isset($_SESSION['login_name'])){
   header("location: ./home.php");
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  // When the user clicks "Sign In"
-  if(isset($_POST['act']) && $_POST['act'] == 'login'){
-    // Get username and password from the login form
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+  // When the buyer clicks "Sign In"
+    if(isset($_POST['act']) && $_POST['act'] == 'login'){
+    // Get buyername and password from the login form
+        $buyername = $_POST['buyername'];
+        $password = $_POST['password'];
 
-    // Send a query to validate the user
-    $query = "SELECT * FROM user WHERE uname = '$username' and pwd = '$password'";
-    $result = $conn->query($query);
+        // Send a query to validate the buyer
+        $query = "SELECT * FROM Buyer WHERE uname = '$buyername' and pwd = '$password'";
+        $result = $conn->query($query);
 
-    // If no result has been found, no such user exists
-    // Otherwise, redirect the user to whomephp
-    if($result->num_rows == 0){
-      $message = "Please check your ID and Password!";
-      echo "<script type='text/javascript'>alert('$message');</script>";
-    } else {
-      $result->data_seek(0);
-      $row = $result->fetch_assoc();
-      $_SESSION['login_user'] = $row['uname'];
-      $_SESSION['login_uid'] = $row['uid'];
-      $_SESSION['login_name'] = $row['name'];
-      
-      header("location: ./whomephp");
+        // If no result has been found, no such buyer exists
+        // Otherwise, redirect the buyer to home.php
+
+        if($result->num_rows == 0){
+        $message = "Password and ID, don't match; Please check your ID and Password!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        } else {
+        $result->data_seek(0);
+        $row = $result->fetch_assoc();
+        $_SESSION['login_buyer'] = $row['uname'];
+        $_SESSION['login_bid'] = $row['bid'];
+        $_SESSION['login_name'] = $row['name'];
+        
+        header("location: ./home.php");
+        }
     }
-
-  // When the user clicks "Register"
-}
-else if($_POST['act'] == 'register'){
-    header("location: register.php");
-    Get username and password from the login form
-    $id = $_POST['id'];
-    $pw = $_POST['pw'];
-    
-    // Send a query to check if the same uname already exists
-    $query = "SELECT * FROM user WHERE uname = '$id'";
-    $result = $conn->query($query);
-    $message = "";
-    
-    if($result->num_rows != 0){
-      $message = "ID already exists. Please try with new ID!";
-    } else {
-      $query = "INSERT user(uname, pwd) VALUES ('$id','$pw')";
-      $result = $conn->query($query);
-      $message = "Register Succesful!";
-    }
-    echo "<script type='text/javascript'>alert('$message');</script>";
-  }
  }
 ?>
 
@@ -135,14 +114,14 @@ else if($_POST['act'] == 'register'){
       <input type="hidden" name="act" value="login">
 
          <label for="uname"><b>Username</b></label>
-         <input type="text" placeholder="Enter Username" pattern="[A-Za-z0-9]{5,20}" name="username" required>
+         <input type="text" placeholder="Enter buyername"  name="buyername" required>
 
          <label for="psw"><b>Password</b></label>
          <input type="password" placeholder="Enter Password" pattern="[A-Za-z0-9]{5,20}" name="password" required>
 
          <button class="a" type="submit" value="Sign In">Login</button>
        </form>
-       <form class="b" action="createAccount.php" method = "post" id="login">
+       <form class="b" action="createAccountBuyer.php" method = "post" id="login">
            <button class="b" type="submit" value="createAccount">Don't have account? createAccount Here!</button>
        </form>
       </div>

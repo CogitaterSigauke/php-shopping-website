@@ -151,6 +151,9 @@ CREATE TABLE Transaction(
 );
 
 
-CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
-GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
-ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
+-- CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
+-- GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
+-- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
+
+CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 
+grant all privileges on rcdb.* to 'shopingweb'@'%';

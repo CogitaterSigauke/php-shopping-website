@@ -6,8 +6,8 @@ session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   // When the user clicks "create Account"
   if(isset($_POST['act']) && $_POST['act'] == 'register'){
-    //Get username and password from the login form
-    $id = $_POST['username'];
+    //Get sellername and password from the login form
+    $id = $_POST['sellername'];
     $pw = $_POST['password'];
     $name = $_POST['name'];
 
@@ -21,11 +21,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if($result->num_rows != 0){
       $message = "A buyer with that ID already exists. Please try with new ID!";
     } else {
-      // $query = "INSERT user(uname, pwd, name) VALUES ('$id','$pw', '$name')";
+      $query = "INSERT Seller(uname, pwd, name) VALUES ('$id','$pw', '$name')";
       $result = $conn->query($query);
       $message = "Registered Succesful!";
       echo "<script type='text/javascript'>alert('$message');</script>";
-      header("location: login.php");
+      header("location: login_seller.php");
     }
     echo "<script type='text/javascript'>alert('$message');</script>";
   }
@@ -119,9 +119,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       <label for="email"><b> Email</b></label>
       <input type="email" placeholder="enter your email here" pattern = "[a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}" name="email" required>
 
-      <label for="uname"><b>Username</b></label>
+      <label for="uname"><b>sellername</b></label>
       <!--  A combination of at least five letters and numbers-->
-      <input type="text" placeholder="enter username" pattern="[A-Za-z0-9]{5,20}" name="username" required>
+      <input type="text" placeholder="enter sellername" pattern="[A-Za-z0-9]{5,20}" name="sellername" required>
       
       <!--A combination of at least five letters and numbers  -->
       <label for="psw"><b>Password</b></label>
