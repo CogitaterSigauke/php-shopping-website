@@ -92,19 +92,22 @@
                $stmt->execute(array(":userName" => $userName));
                     
                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-               echo $row;
+               // echo $row;
+
 
 
                print_r($row);
-             
+
                $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname='$userName')"];
-               echo $count;  
+               // echo $count;  
 
                if($count){
+                    echo $count;
                     $message = "A buyer with that ID already exists. Please try with new ID!";
-                    echo  $message;
+                   
                }
                else{
+                   
                     $sql = "INSERT INTO Buyer(uname, pwd, name, email) VALUES (:userName,:pw, :name, :email)";
                     $stmt = $conn->prepare($sql);
                     $stmt->execute(array(
@@ -113,11 +116,10 @@
                          ":name" => $name,
                          ":email" => $email
                     ));
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    echo $row;
-                    echo  $message;
+
                     $message = "Registered Succesfully!";
                     echo "<script type='text/javascript'>alert('$message');</script>";
+                    // echo "Registered Succesfully!";
                     header("location: login_buyer.php");
                }
                echo "<script type='text/javascript'>alert('$message');</script>";

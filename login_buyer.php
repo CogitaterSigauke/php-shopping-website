@@ -5,7 +5,7 @@
           require_once "pdo.php";
           session_start();
           $buyername = $password ="";
-               
+
           if($_SERVER['REQUEST_METHOD'] == "POST") {
                $buyername = $_POST['buyername'];
                $password = $_POST['password'];
@@ -24,8 +24,10 @@
 
                echo $count;
                echo "this is count", $count;  
+
   
                if($count){
+
                   $sql = "SELECT * FROM Buyer WHERE uname = :buyername and pwd = :password";
                   $stmt = $conn->prepare($sql);
                   $stmt->execute(array(
@@ -35,7 +37,8 @@
                   )); 
                   
                   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                
+
+
                   $_SESSION['login_buyer'] = $row['uname'];
                   $_SESSION['login_bid'] = $row['bid'];
                   $_SESSION['login_name'] = $row['name'];
@@ -45,10 +48,11 @@
                   echo $_SESSION['login_buyer'];
                   header("location: ./home.php");
               } 
-              else {
-                $message = "Password and ID, don't match; Please check your ID and Password!";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-              }
+
+              echo "<script type='text/javascript'>alert('Password and ID, don\'t match\; Please check your ID and Password!');</script>";
+              
+              // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
+
           }
      ?>
 <html>

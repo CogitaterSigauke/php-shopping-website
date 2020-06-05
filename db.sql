@@ -29,7 +29,7 @@ CREATE TABLE Accounts (
 );
 
 CREATE TABLE Products(
-    pid INTEGER NOT NULL AUTO_INCREMENT,
+    pid INTEGER NOT NULL,
     price DOUBLE NOT NULL,
     description VARCHAR(256) NOT NULL,
     image VARCHAR(256) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE Products(
 );
 
 CREATE TABLE Shoes(
-    pid INTEGER NOT NULL AUTO_INCREMENT,
+    pid INTEGER NOT NULL,
     size DOUBLE NOT NULL,
     gender VARCHAR(256) NOT NULL,
     model VARCHAR(256) NOT NULL,
@@ -153,35 +153,35 @@ CREATE TABLE FromSeller(
 );
 
 
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (52003,   "This is a good product", "no image", "PC",     80, 55);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (10520,   "This is a good product", "no image", "Laptop",  01, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (15203,   "This is a good product", "no image", "Printer", 02, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (145200,  "This is a good product", "no image", "PC",      03, 3);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1052300, "This is a good product", "no image", "Laptop",  04, 3);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (72030,   "This is a good product", "no image", "Printer", 05, 7);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (75200,   "This is a good product", "no image", "Laptop",  06, 7);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (60500,   "This is a good product", "no image", "PC",      07, 7);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (202300,  "This is a good product", "no image", "Laptop",  08, 3);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (526004,  "This is a good product", "no image", "Printer", 09, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1053200, "This is a good product", "no image", "Laptop",  10, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (205500,  "This is a good product", "no image", "PC",      11, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (62053200,"This is a good product", "no image", "Laptop",  12, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (8045200, "This is a good product", "no image", "Printer", 13, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000001, 52003,   "This is a good product", "no image", "PC",     80, 55);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000002, 10520,   "This is a good product", "no image", "Laptop",  01, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000003, 15203,   "This is a good product", "no image", "Printer", 02, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000004, 145200,  "This is a good product", "no image", "PC",      03, 3);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000005, 1052300, "This is a good product", "no image", "Laptop",  04, 3);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000006, 72030,   "This is a good product", "no image", "Printer", 05, 7);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000007, 75200,   "This is a good product", "no image", "Laptop",  06, 7);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000008, 60500,   "This is a good product", "no image", "PC",      07, 7);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000009, 202300,  "This is a good product", "no image", "Laptop",  08, 3);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000010, 526004,  "This is a good product", "no image", "Printer", 09, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000011, 1053200, "This is a good product", "no image", "Laptop",  10, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000012, 205500,  "This is a good product", "no image", "PC",      11, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000013, 62053200,"This is a good product", "no image", "Laptop",  12, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000014, 8045200, "This is a good product", "no image", "Printer", 13, 5);
 
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1053200, "This is a good shoe", "no shoe image", "shoes", 10, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (205500,  "This is a good shoe", "no shoe image", "shoes", 11, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (62053200,"This is a good shoe", "no shoe image", "shoes", 12, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (8045200, "This is a good shoe", "no shoe image", "shoes", 13, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200001, 1053200, "This is a good shoe", "no shoe image", "shoes", 10, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200002, 205500,  "This is a good shoe", "no shoe image", "shoes", 11, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200003, 62053200,"This is a good shoe", "no shoe image", "shoes", 12, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200004, 8045200, "This is a good shoe", "no shoe image", "shoes", 13, 5);
 
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1053200, "This is a good Accessories", "no image", "accessories",  10, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (205500,  "This is a good Accessories", "no image", "accessories",  11, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (62053200,"This is a good Accessories", "no image", "accessories",  12, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (8045200, "This is a good Accessories", "no image", "accessories",  13, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (21200001, 1053200, "This is a good Accessories", "no image", "accessories",  10, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (21200002, 205500,  "This is a good Accessories", "no image", "accessories",  11, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (21200003, 62053200,"This is a good Accessories", "no image", "accessories",  12, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (21200004, 8045200, "This is a good Accessories", "no image", "accessories",  13, 5);
 
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1053200, "This is a good product", "no image", "clothing", 10, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (205500,  "This is a good product", "no image", "clothing", 11, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (62053200,"This is a good product", "no image", "clothing", 12, 5);
-INSERT INTO Products (price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (8045200, "This is a good product", "no image", "clothing", 13, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (31200001, 1053200, "This is a good product", "no image", "clothing", 10, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (31200002, 205500,  "This is a good product", "no image", "clothing", 11, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (31200003, 62053200,"This is a good product", "no image", "clothing", 12, 5);
+INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (31200004, 8045200, "This is a good product", "no image", "clothing", 13, 5);
 
 INSERT INTO Seller (pwd, name, email) VALUES ("laruiglRBLUI", "HP",     "hp@gmail.com"    );
 INSERT INTO Seller (pwd, name, email) VALUES ("larfarfafabd", "IBM",    "ibm@gmail.com"   );
