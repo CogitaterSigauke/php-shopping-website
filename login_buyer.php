@@ -1,44 +1,52 @@
+
 <?php
-require_once('connection.php');
+     //  require_once "render.php";
 
-session_start();
+          require_once "pdo.php";
+          session_start();
+          $buyername = $password ="";
 
-if(isset($_SESSION['login_buyer']) && isset($_SESSION['login_bid']) && isset($_SESSION['login_name'])){
-  header("location: ./home.php");
-}
+          if($_SERVER['REQUEST_METHOD'] == "POST") {
+               $buyername = $_POST['buyername'];
+               $password = $_POST['password'];
+              
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  // When the buyer clicks "Sign In"
-    if(isset($_POST['act']) && $_POST['act'] == 'login'){
-    // Get buyername and password from the login form
-        $buyername = $_POST['buyername'];
-        $password = $_POST['password'];
-
-        // Send a query to validate the buyer
-        $query = "SELECT * FROM Buyer WHERE uname = '$buyername' and pwd = '$password'";
-        $result = $conn->query($query);
-
-        // If no result has been found, no such buyer exists
-        // Otherwise, redirect the buyer to home.php
-
-        if($result->num_rows == 0){
-        $message = "Password and ID, don't match; Please check your ID and Password!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
-        } else {
-        $result->data_seek(0);
-        $row = $result->fetch_assoc();
-        $_SESSION['login_buyer'] = $row['uname'];
-        $_SESSION['login_bid'] = $row['bid'];
-        $_SESSION['login_name'] = $row['name'];
+               $sql = "SELECT EXISTS(SELECT * FROM Buyer WHERE uname = :buyername and pwd = :password)";
+               $stmt = $conn->prepare($sql);
+               $stmt->execute(array(
         
-        header("location: ./home.php");
-        }
-    }
- }
-?>
+                ":buyername" => $buyername,
+                ":password" => $password
+               
+              ));   
+              $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+              //  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+              //  echo $row;
+              
 
+              //  print_r($row);
+               // $rows = $stmt->fetchAll();
+               $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname = '$buyername' and pwd = '$password')"];
+               echo $count;
+               echo "this is count", $count;  
+
+               
+              if($count){
+                  $row->data_seek(0);
+                  $row = $row->fetch_assoc();
+                  $_SESSION['login_buyer'] = $row['uname'];
+                  $_SESSION['login_bid'] = $row['bid'];
+                  $_SESSION['login_name'] = $row['name'];
+                  header("location: ./home.php");
+                  echo "<script type='text/javascript'>alert('$message');</script>";
+              } 
+              else {
+                $message = "Password and ID, don't match; Please check your ID and Password!";
+                
+              }
+          }
+     ?>
 <html>
   <head>
     <style>
@@ -117,7 +125,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
          <input type="text" placeholder="Enter buyername"  name="buyername" required>
 
          <label for="psw"><b>Password</b></label>
-         <input type="password" placeholder="Enter Password" pattern="[A-Za-z0-9]{5,20}" name="password" required>
+         <input type="password" placeholder="Enter Password" name="password" required>
 
          <button class="a" type="submit" value="Sign In">Login</button>
        </form>
