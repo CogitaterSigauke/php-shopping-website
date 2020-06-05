@@ -76,14 +76,16 @@ CREATE TABLE Oder(
 CREATE TABLE Cart(
     pid INTEGER NOT NULL,
     bid INTEGER NOT NULL,
-    quantity INTEGER NOT NULL
+    quantity INTEGER NOT NULL,
     PRIMARY KEY (pid, bid, quantity)
 );
 
 CREATE TABLE Address(
     aid INTEGER NOT NULL AUTO_INCREMENT,
-    Country VARCHAR(256) NOT NULL,
-    City VARCHAR(256) NOT NULL,
+    uid  INTEGER NOT NULL,
+    accType VARCHAR(256) NOT NULL,
+    country VARCHAR(256) NOT NULL,
+    city VARCHAR(256) NOT NULL,
     street VARCHAR(256) NOT NULL,
     PRIMARY KEY (aid)
 );
@@ -96,13 +98,6 @@ CREATE TABLE Transaction(
     uid VARCHAR(256) NOT NULL,
     transactionType VARCHAR(256) NOT NULL,
     PRIMARY KEY (tid)
-);
-
-CREATE TABLE LivesIn(
-    uid INTEGER NOT NULL,
-    accType VARCHAR(256) NOT NULL,
-    aid INTEGER NOT NULL,
-    PRIMARY KEY (uid,accType)
 );
 
 CREATE TABLE HasOrder(
@@ -206,9 +201,17 @@ INSERT INTO Post (title, postDate) VALUES ("new products",  "2020-01-10T02:00:00
 
 DROP USER IF EXISTS 'grader'@'%';
 
-CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
-GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
-ALTER USER CURRENT_USER() IDENTIFIED BY 'allowme';
+-- ===========MY SQL===========
+
+-- CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
+-- GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
+-- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
+
+-- ===========MARIA DB=================
+
+SET old_passwords=0;
+GRANT SELECT ON rcdb.* TO 'grader'@'%' IDENTIFIED BY 'allowme';
+
 -- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
 
 -- CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 

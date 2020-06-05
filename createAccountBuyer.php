@@ -96,7 +96,7 @@
 
 
                print_r($row);
-               // $rows = $stmt->fetchAll();
+             
                $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname='$userName')"];
                echo $count;  
 
@@ -115,6 +115,7 @@
                     ));
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo $row;
+                    echo  $message;
                     $message = "Registered Succesfully!";
                     echo "<script type='text/javascript'>alert('$message');</script>";
                     header("location: login_buyer.php");
@@ -150,9 +151,3 @@
           </div>
      </body>
 </html>
-<!-- 
-// $row = $stmt->fetch(PDO::FETCH_ASSOC);
-               // $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname='$userName')"];
-
-               // // $query = "INSERT INTO Buyer(bid, uname, pwd, name, email) VALUES (2, '$userName','$pw', '$name', '$email')";
-               // $result = $conn->query($query); -->
