@@ -6,6 +6,107 @@
     require_once "pdo.php";
 
 
+
+
+    // $pid  = $count + 1; 
+    // $price = 1053200  ;     
+    // $description = "This is a good Accessories";     
+    // $image = "no image" ;         
+    // $name = "accessories" ;     
+    // $percentageDiscount = 10  ;     
+    // $numProductsForDiscount= 5 ;       
+    // $category = "accessories";     
+    // $sid = 23;
+    // $quantity = 55;
+
+
+// ==========================ADD PRODUCT TO ORDERS==================
+    // $sql = "SELECT COUNT(*) FROM Orders";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
+    // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // print_r($row);
+    // $count = $row["COUNT(*)"];
+    // echo $count;
+
+    // $uname = "cogi";
+    // $pid = 101;
+    // $quantity = 50;
+    // $finalPriceAfterDiscount = 100;
+    // $orderId = $count + 1;
+    // $orderStatus = "orderPlaced";
+
+    // $sql = "INSERT INTO Order(oid, price, quantity, status) VALUES (:oid, :price, :quantity, :status)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute(array(
+    //     ":oid"   => $oid,   
+    //     ":price" => $finalPriceAfterDiscount,
+    //     ":quantity" => $quantity,
+    //     ":status"  => $orderStatus 
+    //  ));
+
+    // echo "<script type='text/javascript'>alert('ORDER PLACED ');</script>";
+
+    // $sql = "SELECT bid FROM Buyers Where uname=:uname";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
+    // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // $bid = $row["bid"];
+
+    // $sql = "SELECT sid FROM HasProd Where pid=:pid";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
+    // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // $sid = $row["sid"];
+
+
+    // $sql = "INSERT INTO HasOrder(bid, oid) VALUES (:bid, :oid)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute(array(
+    //     ":bid"  => $bid,
+    //     ":oid"  => $oid
+    //  ));
+
+    //  echo "<script type='text/javascript'>alert('HAS ORDER INSERTED');</script>";
+
+    // $sql = "INSERT INTO OrderOf(oid, pid) VALUES (:oid, :pid)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute(array(
+    //     ":oid"  => $oid,
+    //     ":pid"  => $pid
+    //  ));
+     
+    // echo "<script type='text/javascript'>alert('ORDEROF INSERTED');</script>";
+ 
+    // $sql = "INSERT INTO FromSeller(oid, sid) VALUES (:oid, :sid)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute(array(
+    //     ":oid"  => $oid,
+    //     ":sid"  => $sid
+    //  ));
+     
+    // echo "<script type='text/javascript'>alert('FROM SELLER INSERTED');</script>";
+ 
+// ==========================ADD PRODUCT TO CART==================
+    // $uname = "cogi";
+    // $quantity = 50;
+
+    // $sql = "SELECT bid FROM Buyers Where uname=:uname";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
+    // $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // $bid = $row["bid"];
+    
+    // $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute(array(
+    //     ":pid"   => $pid,                   
+    //     ":bid"  => $bid,
+    //     ":quantity" => $quantity 
+    //  ));
+
+    //  echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
+
 //  ======================GET ALL PRODUCTS ORDERED FROM SELLER BY ORDER STATUS =======================
 // $sellerUserName = "HP3";
 // $orderStatus = "shipped"; //{shipped | cancelled | delivered | orderPlaced }
@@ -62,6 +163,39 @@
 //         echo"<br /><br /><br />";
 //    }
 
+
+// // =========================GET ALL PRODUCTS FROM SELLER AND FILTER BY PRICE=======================================    
+//     $sellerUserName = "HP3";
+//     $price = 2000;
+//     $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount 
+//         FROM Products, Seller, HasProd 
+//         WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid 
+//             AND Seller.uname=:uname AND price=:price";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute(array(
+//         ":uname" => $sellerUserName,
+//         ":price" => $price
+//     ));
+//     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//     $rows = $stmt->fetchAll();
+
+//     $count = count($rows);
+    
+//     if($count){
+//         echo "<table style='border: solid 1px black;'>";
+//         echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
+//             <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
+//         foreach(new TableRows(new RecursiveArrayIterator($rows)) as $k=>$v) {
+//              echo $v;
+//         }
+//         echo"</table>";
+//         echo"<br /><br /><br />";
+//    }
+
+
+
+
+
 // // =========================GET ALL PRODUCTS FROM SELLER=======================================    
 //     $sellerUserName = "HP3";
 //     $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount FROM Products, Seller, HasProd WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid AND Seller.uname=:uname";
@@ -84,6 +218,20 @@
 //         echo"</table>";
 //         echo"<br /><br /><br />";
 //    }
+
+
+// // =========================GET ALL PRODUCTS BY PRICE=======================================    
+// $price = 2000;
+// $sql = "SELECT * FROM Products WHERE price=:price";
+    
+// $stmt = $conn->prepare($sql);
+// $stmt->execute(array(
+//     ":price" => $price
+// ));
+// $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+// $rows = $stmt->fetchAll();
+
+
 
 // =========================GET ALL PRODUCTS=======================================    
 

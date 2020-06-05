@@ -36,16 +36,20 @@ get all ""
 
 get all products ""								**done**
 	by catagory									**done**
-	by price
-	by category and price
-	by category and price and seller
-	
+	by price									**done**
+	by category and price						**done**
+	by category and price and seller			**done**
+
 get all products """								
 	in buyer's cart
 	in buyer's orders
 delete all products from ""
 	buyers cart
 
+Add to cart										**done**
+place an order									**done**
+
+remove from cart
 cancel order
 
 nice top have:
