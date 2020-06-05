@@ -144,7 +144,7 @@
             );
             console.log("After Handle Upload\n state :", this.state);
             };
-        }
+        
     </script>
 
   </body>

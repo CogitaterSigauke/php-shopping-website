@@ -18,6 +18,7 @@ CREATE TABLE Seller (
 	sid INTEGER NOT NULL AUTO_INCREMENT,
 	pwd VARCHAR(256) NOT NULL,
 	name VARCHAR(256) NOT NULL,
+    uname VARCHAR(256) NOT NULL,
     email VARCHAR(256) NOT NULL,
 	PRIMARY KEY (sid)
 );
@@ -183,10 +184,10 @@ INSERT INTO Products (pid, price, description, image, name, percentageDiscount, 
 INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (31200003, 62053200,"This is a good product", "no image", "clothing", 12, 5);
 INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (31200004, 8045200, "This is a good product", "no image", "clothing", 13, 5);
 
-INSERT INTO Seller (pwd, name, email) VALUES ("laruiglRBLUI", "HP",     "hp@gmail.com"    );
-INSERT INTO Seller (pwd, name, email) VALUES ("larfarfafabd", "IBM",    "ibm@gmail.com"   );
-INSERT INTO Seller (pwd, name, email) VALUES ("laruiglRfara", "LENOVO", "lenovo@gmail.com");
-INSERT INTO Seller (pwd, name, email) VALUES ("laruiaerbryw", "APPLE",  "apple@gmail.com" );
+INSERT INTO Seller (pwd, name, uname, email) VALUES ("laruiglRBLUI", "HP",    "HP3",     "hp@gmail.com"    );
+INSERT INTO Seller (pwd, name, uname, email) VALUES ("larfarfafabd", "IBM",   "IBM3",    "ibm@gmail.com"   );
+INSERT INTO Seller (pwd, name, uname, email) VALUES ("laruiglRfara", "LENOVO","LENOVO3", "lenovo@gmail.com");
+INSERT INTO Seller (pwd, name, uname, email) VALUES ("laruiaerbryw", "APPLE", "APPLE3",  "apple@gmail.com" );
 
 INSERT INTO Buyer (pwd, name, uname, email) VALUES ("larRBLUI", "Tatenda",   "Tatenda7",   "tatenda@gmail.com"  );
 INSERT INTO Buyer (pwd, name, uname, email) VALUES ("larafabd", "Rediet",    "Rediet3",    "rediet@gmail.com"   );

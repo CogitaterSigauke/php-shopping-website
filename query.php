@@ -6,11 +6,108 @@
     require_once "pdo.php";
 
 
+//  ======================GET ALL PRODUCTS ORDERED FROM SELLER BY ORDER STATUS =======================
+// $sellerUserName = "HP3";
+// $orderStatus = "shipped"; //{shipped | cancelled | delivered | orderPlaced }
 
+// $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount 
+//             FROM Products, Seller, Order, FromSeller 
+//             WHERE Seller.sid=FromSeller.sid AND Products.pid=Order.pid 
+//                 AND FromSeller.oid=Order.oid AND Order.status=:status
+//                 Seller.uname=:uname";                
+// $stmt = $conn->prepare($sql);
+// $stmt->execute(array(
+//     ":uname" => $sellerUserName,
+//     ":status" => $orderStatus
+// ));
+// $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+// $rows = $stmt->fetchAll();
 
+//     $count = count($rows);
+    
+//     if($count){
+//         echo "<table style='border: solid 1px black;'>";
+//         echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
+//             <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
+//         foreach(new TableRows(new RecursiveArrayIterator($rows)) as $k=>$v) {
+//              echo $v;
+//         }
+//         echo"</table>";
+//         echo"<br /><br /><br />";
+//    }
 
+// //  ======================GET ALL PRODUCTS ORDERED FROM SELLER=======================
+//     $sellerUserName = "HP3";
+//     $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount 
+//                 FROM Products, Seller, Order, FromSeller 
+//                 WHERE Seller.sid=FromSeller.sid AND Products.pid=Order.pid 
+//                     AND FromSeller.oid=Order.oid AND Seller.uname=:uname";                
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute(array(
+//         ":uname" => $sellerUserName
+//     ));
+//     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//     $rows = $stmt->fetchAll();
 
+//     $count = count($rows);
+    
+//     if($count){
+//         echo "<table style='border: solid 1px black;'>";
+//         echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
+//             <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
+//         foreach(new TableRows(new RecursiveArrayIterator($rows)) as $k=>$v) {
+//              echo $v;
+//         }
+//         echo"</table>";
+//         echo"<br /><br /><br />";
+//    }
 
+// // =========================GET ALL PRODUCTS FROM SELLER=======================================    
+//     $sellerUserName = "HP3";
+//     $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount FROM Products, Seller, HasProd WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid AND Seller.uname=:uname";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute(array(
+//         ":uname" => $sellerUserName
+//     ));
+//     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//     $rows = $stmt->fetchAll();
+
+//     $count = count($rows);
+    
+//     if($count){
+//         echo "<table style='border: solid 1px black;'>";
+//         echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
+//             <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
+//         foreach(new TableRows(new RecursiveArrayIterator($rows)) as $k=>$v) {
+//              echo $v;
+//         }
+//         echo"</table>";
+//         echo"<br /><br /><br />";
+//    }
+
+// =========================GET ALL PRODUCTS=======================================    
+
+    $sql = "SELECT * FROM Products";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $rows = $stmt->fetchAll();
+
+// ========================VIEW PRODUCTS====================================
+
+    $count = count($rows);
+    
+    if($count){
+        echo "<table style='border: solid 1px black;'>";
+        echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
+            <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
+        foreach(new TableRows(new RecursiveArrayIterator($rows)) as $k=>$v) {
+             echo $v;
+        }
+        echo"</table>";
+        echo"<br /><br /><br />";
+   }
 
 
 // ======================INSERT PRODUCT===========================
@@ -34,6 +131,18 @@
     // $percentageDiscount = 10  ;     
     // $numProductsForDiscount= 5 ;       
     // $category = "accessories";     
+    // $sid = 23;
+    // $quantity = 55;
+
+    // $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute(array(
+    //     ":pid"         => $pid,                   
+    //     ":sid"         => $sid,                 
+    //     ":quantity"    => $quantity
+    // ));
+
+    // echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTED');</script>";
 
     // $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
     // $stmt = $conn->prepare($sql);
