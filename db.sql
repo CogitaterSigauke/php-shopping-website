@@ -72,6 +72,14 @@ CREATE TABLE Oder(
     PRIMARY KEY (oid)
 );
 
+
+CREATE TABLE Cart(
+    pid INTEGER NOT NULL,
+    bid INTEGER NOT NULL,
+    quantity INTEGER NOT NULL
+    PRIMARY KEY (pid, bid, quantity)
+);
+
 CREATE TABLE Address(
     aid INTEGER NOT NULL AUTO_INCREMENT,
     Country VARCHAR(256) NOT NULL,
@@ -202,5 +210,5 @@ DROP USER IF EXISTS 'grader'@'%';
 -- GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
 -- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
 
-CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 
-grant all privileges on rcdb.* to 'shopingweb'@'%';
+-- CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 
+-- grant all privileges on rcdb.* to 'shopingweb'@'%';

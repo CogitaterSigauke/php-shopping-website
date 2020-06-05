@@ -5,7 +5,8 @@
           require_once "pdo.php";
           session_start();
           $buyername = $password ="";
-
+          $message = "Password and ID, don't match; Please check your ID and Password!";
+              
           if($_SERVER['REQUEST_METHOD'] == "POST") {
                $buyername = $_POST['buyername'];
                $password = $_POST['password'];
@@ -29,22 +30,47 @@
                // $rows = $stmt->fetchAll();
                $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname = '$buyername' and pwd = '$password')"];
                echo $count;
+
                echo "this is count", $count;  
 
-               
-              if($count){
-                  $row->data_seek(0);
-                  $row = $row->fetch_assoc();
+              //  echo "<script type='text/javascript'>alert('$count');</script>";
+              
+               if($count){
+
+                  print_r($row);
+
+
+                  $sql = "SELECT * FROM Buyer WHERE uname = :buyername and pwd = :password";
+                  $stmt = $conn->prepare($sql);
+                  $stmt->execute(array(
+           
+                   ":buyername" => $buyername,
+                   ":password" => $password
+                  
+                  )); 
+
+
+                  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                  // print_r($row);
+              
                   $_SESSION['login_buyer'] = $row['uname'];
                   $_SESSION['login_bid'] = $row['bid'];
                   $_SESSION['login_name'] = $row['name'];
+
+                  echo $_SESSION['login_buyer'];
+                  echo $_SESSION['login_buyer'];
+                  echo $_SESSION['login_buyer'];
                   header("location: ./home.php");
-                  echo "<script type='text/javascript'>alert('$message');</script>";
+                  
               } 
               else {
-                $message = "Password and ID, don't match; Please check your ID and Password!";
-                
+
+                  // echo $message;
+                // $m3 = $message;
+                // echo $m3; 
               }
+
+                echo "<script type='text/javascript'>alert('$message');</script>";
           }
      ?>
 <html>

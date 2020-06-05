@@ -1,0 +1,57 @@
+ALL
+
+get address
+get user detail from buyer and seller
+insert address
+create account
+
+=========================================================
+
+SELLER
+
+insert product
+delete sold products
+edit a product
+
+get account balance
+withdraw from account
+
+
+
+get all products """
+	ordered from seller
+	ordered from seller and not shipped
+	ordered from seller and delivered
+	ordered from seller and shipped but not delivered
+	ordered from seller and cancelled
+
+delele all products from seller
+
+=======================================================
+BUYER
+
+get all products and sellers
+
+get all product by price
+get all products ""
+	by catagory
+	by category and price
+	by category and price and seller
+	
+get all products """
+	in buyer's cart
+	in buyer's orders
+delete all products from ""
+	buyers cart
+
+cancel order
+
+nice top have:
+
+comment on product	
+
+
+==========================================================
+
+
+
