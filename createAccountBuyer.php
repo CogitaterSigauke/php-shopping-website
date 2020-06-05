@@ -1,7 +1,8 @@
 
 <?php
     
-    include_once 'connection.php';
+    // include_once 'connection.php';
+    // require_once "pdo.php";
 ?>
 
 
@@ -80,49 +81,59 @@
 
   </head>
   <body>
-
-    <?php
+    
+  <?php
        
-        // require_once('connection.php');
-        session_start();
-        
-        if($_SERVER['REQUEST_METHOD'] == "POST") {
-           
-            if(isset($_POST['act']) && $_POST['act'] == 'register'){
-               
-                $userName = $_POST['username'];
-                $pw = $_POST['password'];
-                $name = $_POST['name'];
-                $email = $_POST['email'];
-                echo $userName;
+       // require_once('connection.php');
+      session_start();
+      require_once "pdo.php";
+      echo "I am here";
+       // $uname="";
+      if($_SERVER['REQUEST_METHOD'] == "POST") {
+          
+        if(isset($_POST['act']) && $_POST['act'] == 'register'){
+            
+          $userName = $_POST['username'];
+          $pw = $_POST['password'];
+          $name = $_POST['name'];
+          $email = $_POST['email'];
+          echo $userName;
+      
+          $query = "SELECT EXISTS(SELECT * FROM Buyer WHERE uname=:userName)";
+          $result = $conn->prepare($query);
+          $result->execute(array(":uname" => $userName));
+          $row = $result->fetch(PDO::FETCH_ASSOC);                
 
-                $query = "SELECT * FROM Buyer WHERE uname = '$userName'";
-                $result = $conn->query($query);
+          print_r($row);
+          echo $row;
 
-                // $result = mysqli_query($conn, $query);
-                
-                $resultCheck = $result->num_rows == 0;
-    
-                // echo $resultCheck;
-                
-                $message = "The user name enterd has no duplicates";
 
-                if($result->num_rows == 0 > 0){
-                    $message = "A buyer with that ID already exists. Please try with new ID!";
-                    }
-                    else {
-                    $query = "INSERT INTO Buyer(bid, uname, pwd, name, email) VALUES (2, '$userName','$pw', '$name', '$email')";
-                    $result = $conn->query($query);
-                    $message = "Registered Succesfully!";
-                    echo "<script type='text/javascript'>alert('$message');</script>";
-                    header("location: login_buyer.php");
-                }
-                echo "<script type='text/javascript'>alert('$message');</script>";
-            }
+
+          // $query = "SELECT * FROM Buyer WHERE uname = '$userName'";
+          // $result = $conn->query($query);
+
+          // $result = mysqli_query($conn, $query);
+          
+          // $resultCheck = $result->num_rows == 0;
+
+          // // echo $resultCheck;
+          
+          // $message = "The user name enterd has no duplicates";
+
+          // if($result->num_rows == 0 > 0){
+          //   $message = "A buyer with that ID already exists. Please try with new ID!";
+          // }
+          // else {
+          //   $query = "INSERT INTO Buyer(bid, uname, pwd, name, email) VALUES (2, '$userName','$pw', '$name', '$email')";
+          //   $result = $conn->query($query);
+          //   $message = "Registered Succesfully!";
+          //   echo "<script type='text/javascript'>alert('$message');</script>";
+          //   header("location: login_buyer.php");
+          // }
+          // echo "<script type='text/javascript'>alert('$message');</script>";
         }
-    ?>
-
-    
+      }
+   ?>
   <div class="container">
     <form class="a" action="" method = "post" id="register">
 

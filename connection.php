@@ -1,11 +1,11 @@
 <?php
 
 $dbServername = "localhost";
-$dbUsername = "root";
+$dbUsername = "grader";
 
-$dbPassword = "";
+$dbPassword = "allowme";
 
-$dbName = "";
+$dbName = "rcdb";
 
 $conn = new mysqli($dbServername, $dbUsername, $dbPassword, $dbName);
 // $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
