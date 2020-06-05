@@ -76,14 +76,16 @@ CREATE TABLE Oder(
 CREATE TABLE Cart(
     pid INTEGER NOT NULL,
     bid INTEGER NOT NULL,
-    quantity INTEGER NOT NULL
+    quantity INTEGER NOT NULL,
     PRIMARY KEY (pid, bid, quantity)
 );
 
 CREATE TABLE Address(
     aid INTEGER NOT NULL AUTO_INCREMENT,
-    Country VARCHAR(256) NOT NULL,
-    City VARCHAR(256) NOT NULL,
+    uid  INTEGER NOT NULL,
+    accType VARCHAR(256) NOT NULL,
+    country VARCHAR(256) NOT NULL,
+    city VARCHAR(256) NOT NULL,
     street VARCHAR(256) NOT NULL,
     PRIMARY KEY (aid)
 );
@@ -96,13 +98,6 @@ CREATE TABLE Transaction(
     uid VARCHAR(256) NOT NULL,
     transactionType VARCHAR(256) NOT NULL,
     PRIMARY KEY (tid)
-);
-
-CREATE TABLE LivesIn(
-    uid INTEGER NOT NULL,
-    accType VARCHAR(256) NOT NULL,
-    aid INTEGER NOT NULL,
-    PRIMARY KEY (uid,accType)
 );
 
 CREATE TABLE HasOrder(
