@@ -201,9 +201,18 @@ INSERT INTO Post (title, postDate) VALUES ("new products",  "2020-01-10T02:00:00
 
 DROP USER IF EXISTS 'grader'@'%';
 
-CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
-GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
-ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
+-- ===========MY SQL===========
+
+-- CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
+-- GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
+-- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
+
+-- ===========MARIA DB=================
+
+SET old_passwords=0;
+GRANT SELECT ON rcdb.* TO 'grader'@'%' IDENTIFIED BY 'allowme';
+
+-- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
 
 -- CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 
 -- grant all privileges on rcdb.* to 'shopingweb'@'%';
