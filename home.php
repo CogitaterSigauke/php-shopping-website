@@ -1,17 +1,6 @@
 <!--Name Rediet Negash, CSE 305 PS 5-->
 
 
-<?php>
-
-
-
-<?>
-
-
-
-
-
-
 
 <!--Main Page Home-->
   <!-- Bootstrap core External CSS -->
