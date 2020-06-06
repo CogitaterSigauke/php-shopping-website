@@ -213,8 +213,7 @@ DROP USER IF EXISTS 'grader'@'%';
 
 SET old_passwords=0;
 GRANT SELECT ON rcdb.* TO 'grader'@'%' IDENTIFIED BY 'allowme';
-
--- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
+ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
 
 -- CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 
 -- grant all privileges on rcdb.* to 'shopingweb'@'%';

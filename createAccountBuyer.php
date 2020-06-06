@@ -82,54 +82,58 @@
           $userName = $pw = $name = $email ="";
 
           if($_SERVER['REQUEST_METHOD'] == "POST") {
-               $userName = $_POST['username'];
-               $pw = $_POST['password'];
-               $name = $_POST['name'];
-               $email = $_POST['email'];
 
-               $sql = "SELECT EXISTS(SELECT * FROM Buyer WHERE uname=:userName)";
-               $stmt = $conn->prepare($sql);
-               $stmt->execute(array(":userName" => $userName));
-                    
-               $row = $stmt->fetch(PDO::FETCH_ASSOC);
-               // echo $row;
+               if(isset($_POST['act']) && $_POST['act'] == 'register_buyer'){
+               
+                    $userName = $_POST['username'];
+                    $pw = $_POST['password'];
+                    $name = $_POST['name'];
+                    $email = $_POST['email'];
 
-
-
-               print_r($row);
-
-               $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname='$userName')"];
-               // echo $count;  
-
-               if($count){
-                    echo $count;
-                    $message = "A buyer with that ID already exists. Please try with new ID!";
-                   
-               }
-               else{
-                   
-                    $sql = "INSERT INTO Buyer(uname, pwd, name, email) VALUES (:userName,:pw, :name, :email)";
+                    $sql = "SELECT EXISTS(SELECT * FROM Buyer WHERE uname=:userName)";
                     $stmt = $conn->prepare($sql);
-                    $stmt->execute(array(
-                         ":userName" => $userName,
-                         ":pw" => $pw,
-                         ":name" => $name,
-                         ":email" => $email
-                    ));
+                    $stmt->execute(array(":userName" => $userName));
+                         
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo $row;
 
-                    $message = "Registered Succesfully!";
+
+
+                    print_r($row);
+
+                    $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname='$userName')"];
+                    echo $count;  
+
+                    if($count){
+                         echo $count;
+                         $message = "A buyer with that ID already exists. Please try with new ID!";
+                    
+                    }
+                    else{
+                    
+                         $sql = "INSERT INTO Buyer(uname, pwd, name, email) VALUES (:userName,:pw, :name, :email)";
+                         $stmt = $conn->prepare($sql);
+                         $stmt->execute(array(
+                              ":userName" => $userName,
+                              ":pw" => $pw,
+                              ":name" => $name,
+                              ":email" => $email
+                         ));
+
+                         $message = "Registered Succesfully!";
+                         echo "<script type='text/javascript'>alert('$message');</script>";
+                         // echo "Registered Succesfully!";
+                         header("location: login.php");
+                    }
                     echo "<script type='text/javascript'>alert('$message');</script>";
-                    // echo "Registered Succesfully!";
-                    header("location: login_buyer.php");
                }
-               echo "<script type='text/javascript'>alert('$message');</script>";
           }
      ?>
 
           <div class="container">
                <form class="a" action="" method = "post" id="register">
 
-                    <input type="hidden" name="act" value="register" >
+                    <input type="hidden" name="act" value="register_buyer" >
 
                     <label for="name"><b> Name</b></label>
                     <input type="text" placeholder="enter your name here" name="name" required>
@@ -147,7 +151,7 @@
                     <button class="a" type="submit" value="register">Create Account</button>
 
                </form>
-               <form class="b" action="login_buyer.php" method = "post" id="login_buyer">
+               <form class="b" action="login_option.php" method = "post" id="login">
                     <button class="b" type="submit" value="cancel">Cancel</button>
                </form>
           </div>

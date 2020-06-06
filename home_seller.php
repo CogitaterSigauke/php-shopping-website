@@ -26,22 +26,21 @@
         <ul class="navbar-nav ml-auto">
          
         <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="getClothing.php">Clothing</a>
+            <a class="nav-link js-scroll-trigger" href="insertProduct.php">Insert Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="getAccessories.php">Accessories</a>
+            <a class="nav-link js-scroll-trigger" href="myProducts.php">My Products</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="getShoes.php">Shoes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="getAllCategores.php">All Categories</a>
-          </li>
+          </li> -->
           
             <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="logout.php">SignOut</a>
             </li>
-         
         </ul>
       </div>
     </div>

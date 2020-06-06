@@ -36,7 +36,7 @@
     // $orderId = $count + 1;
     // $orderStatus = "orderPlaced";
 
-    // $sql = "INSERT INTO Order(oid, price, quantity, status) VALUES (:oid, :price, :quantity, :status)";
+    // $sql = "INSERT INTO OrderTable(oid, price, quantity, status) VALUES (:oid, :price, :quantity, :status)";
     // $stmt = $conn->prepare($sql);
     // $stmt->execute(array(
     //     ":oid"   => $oid,   

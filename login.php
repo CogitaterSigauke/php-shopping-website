@@ -4,23 +4,29 @@
 
           require_once "pdo.php";
           session_start();
-          $buyername = $password ="";
+          $username = $password ="";
+
+          if(isset($_SESSION['login_user'])&& isset($_SESSION['login_uid']) && isset($_SESSION['login_name'])){
+            header("location: ./home.php");
+          }
 
           if($_SERVER['REQUEST_METHOD'] == "POST") {
-               $buyername = $_POST['buyername'];
+            if(isset($_POST['act'])&& $_POST['act'] == 'login'){
+
+               $username = $_POST['username'];
                $password = $_POST['password'];
               
 
-               $sql = "SELECT EXISTS(SELECT * FROM Buyer WHERE uname = :buyername and pwd = :password)";
+               $sql = "SELECT EXISTS(SELECT * FROM Buyer WHERE uname = :username and pwd = :password)";
                $stmt = $conn->prepare($sql);
                $stmt->execute(array(
         
-                ":buyername" => $buyername,
+                ":username" => $username,
                 ":password" => $password
                
               ));   
               $row = $stmt->fetch(PDO::FETCH_ASSOC);
-               $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname = '$buyername' and pwd = '$password')"];
+              $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname = '$username' and pwd = '$password')"];
 
                echo $count;
                echo "this is count", $count;  
@@ -28,31 +34,33 @@
   
                if($count){
 
-                  $sql = "SELECT * FROM Buyer WHERE uname = :buyername and pwd = :password";
+                  $sql = "SELECT * FROM Buyer WHERE uname = :username and pwd = :password";
                   $stmt = $conn->prepare($sql);
                   $stmt->execute(array(
            
-                   ":buyername" => $buyername,
+                   ":username" => $username,
                    ":password" => $password
                   )); 
                   
                   $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-                  $_SESSION['login_buyer'] = $row['uname'];
-                  $_SESSION['login_bid'] = $row['bid'];
+                  $_SESSION['login_user'] = $row['uname'];
+                  $_SESSION['login_uid'] = $row['uid'];
                   $_SESSION['login_name'] = $row['name'];
 
-                  echo $_SESSION['login_buyer'];
-                  echo $_SESSION['login_buyer'];
-                  echo $_SESSION['login_buyer'];
+                  echo $_SESSION['login_user'];
+                  echo $_SESSION['login_user'];
+                  echo $_SESSION['login_user'];
                   header("location: ./home.php");
-              } 
+              } else{
+                $message = "Password and ID, don\'t match\; Please check your ID and Password!";
+              }
 
-              echo "<script type='text/javascript'>alert('Password and ID, don\'t match\; Please check your ID and Password!');</script>";
+              echo "<script type='text/javascript'>alert('$message');</script>";
               
               // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
-
+            }
           }
      ?>
 <html>
@@ -130,7 +138,7 @@
          <input type="hidden" name="act" value="login">
 
          <label for="uname"><b>Username</b></label>
-         <input type="text" placeholder="Enter buyername"  name="buyername" required>
+         <input type="text" placeholder="Enter username"  name="username" required>
 
          <label for="psw"><b>Password</b></label>
          <input type="password" placeholder="Enter Password" name="password" required>
@@ -138,8 +146,8 @@
          <button class="a" type="submit" value="Sign In">Login</button>
 
        </form>
-       <form class="b" action="createAccountBuyer.php" method = "post" id="login">
-           <button class="b" type="submit" value="createAccount">Don't have account? createAccount Here!</button>
+       <form class="b" action="register.php" method = "" id="register">
+           <button class="b" type="submit" value="register">Don't have account? createAccount Here!</button>
        </form>
       </div>
 

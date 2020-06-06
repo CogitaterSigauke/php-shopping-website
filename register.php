@@ -41,15 +41,6 @@
         cursor: pointer;
         width: 100%;
       }
-      button.c {
-        background-color: red;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-      }
 
       button:hover {
         opacity: 0.8;
@@ -78,18 +69,15 @@
    
 
     <div class="container">
-        <h1>Insert Product</h1>
-        <form class="a" action="insertClothing.php" method = "post" >
-            <label for="insert"><b>Want to insert Product? Select the type of product that you want to insert</b></label>
-            <button class="a" type="submit" value="Seller Account">Clothing</button>
+
+        <form class="a" action="createAccountBuyer.php" method = "post" id="register_buyer">
+            <label for="account"><b>What type of account do you want to create</b></label>
+            <button class="a" type="submit" value="Seller Account">Buyer Account</button>
         </form>
 
-        <form class="b" action="insertShoes.php" method = "post" >
-           <button class="b" type="submit" value="register">Shoes</button>
+        <form class="b" action="createAccountSeller.php" method = "post" id="register_seller">
+           <button class="b" type="submit" value="register">Seller Account</button>
         </form>
-        <form class="b" action="insertAccessories.php" method = "">
-           <button class="c" type="submit" value="register">Accessories </button>
-       </form>
     </div>
 
 

@@ -78,17 +78,17 @@
    
 
     <div class="container">
-        <h1>Insert Product</h1>
-        <form class="a" action="insertClothing.php" method = "post" >
-            <label for="insert"><b>Want to insert Product? Select the type of product that you want to insert</b></label>
-            <button class="a" type="submit" value="Seller Account">Clothing</button>
+        <h1>Welcome to our shopping website</h1>
+        <form class="a" action="login.php" method = "post" id="login_buyer">
+            <label for="account"><b>Wnat to login? Select the type of account that you want to login</b></label>
+            <button class="a" type="submit" value="Seller Account">Buyer Account</button>
         </form>
 
-        <form class="b" action="insertShoes.php" method = "post" >
-           <button class="b" type="submit" value="register">Shoes</button>
+        <form class="b" action="login_seller.php" method = "post" id="login_seller">
+           <button class="b" type="submit" value="register">Seller Account</button>
         </form>
-        <form class="b" action="insertAccessories.php" method = "">
-           <button class="c" type="submit" value="register">Accessories </button>
+        <form class="b" action="register.php" method = "" id="register">
+           <button class="c" type="submit" value="register">Don't have account? createAccount Here!</button>
        </form>
     </div>
 
