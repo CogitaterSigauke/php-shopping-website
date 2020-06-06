@@ -43,8 +43,25 @@
             </li>
         </ul>
       </div>
-    </div>
-  </nav>
+      <?php
+
+        require_once "pdo.php";
+        session_start();
+
+        echo "SID ===>";
+        echo $_SESSION['login_sid'];
+        // $_SESSION['TEST2'] = "TEST 2 IS HERE";
+        // echo  $_SESSION['TEST'] ;
+        // echo  $_SESSION['TEST2']; 
+        // echo $_SESSION()
+        echo '<pre>';
+        var_dump($_SESSION);
+        echo '</pre>';
+        echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
+        
+        ?>
+        </div>
+    </nav>
 
 
     

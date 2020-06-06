@@ -31,12 +31,15 @@
     </div>
   </nav>
 
-  <h2>Filter By Price<h2>
+  <h2>Filter By Seller And Price<h2>
   <form class="a" action="" method = "post" id="filter_price">
     <input type="hidden" name="act" value="filter_price" id="filter_price">
 
-    <label for="price">Enter Price</label>
+    <h4>Enter Price</h4>
     <input type="text" placeholder="Enter Price"  name="price" required>
+    </br>
+    <h4>Enter Seller Seller User Name</h4>
+    <input type="text" placeholder="Enter Seller User Name"  name="uname" required>
     <button type= "submit" value= "submit">submit</button>
   </form>
 
@@ -49,25 +52,25 @@
 
     session_start();
         
-    // if($_SERVER['REQUEST_METHOD'] == "POST") {
-    //   if(isset($_POST['act'])&& $_POST['act'] == 'filter_price'){
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+      if(isset($_POST['act'])&& $_POST['act'] == 'filter_price'){
+        $sellerUserName = $_POST['uname'];
         $price = $_POST['price'];
-        // $price = 1053200;   
-        echo $price;
-        $sql = "SELECT * FROM Products WHERE price=:price";
 
+        $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount 
+            FROM Products, Seller, HasProd 
+            WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid 
+                AND Seller.uname=:uname AND price=:price";
         $stmt = $conn->prepare($sql);
         $stmt->execute(array(
+            ":uname" => $sellerUserName,
             ":price" => $price
         ));
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $rows = $stmt->fetchAll();
 
-        echo $price;
-        // ========================VIEW PRODUCTS====================================
-
         $count = count($rows);
-
+        
         if($count){
             echo "<table style='border: solid 1px black;'>";
             echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
@@ -77,9 +80,12 @@
             }
             echo"</table>";
             echo"<br /><br /><br />";
-        }
-    //   }
-    // }
+      }
+
+
+
+      }
+    }
 
 ?>
 

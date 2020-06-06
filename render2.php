@@ -5,11 +5,14 @@ class TableRows extends RecursiveIteratorIterator {
     }
 
     function current() {
-        return "<td style='width:200px;border:1px solid black;'>" . parent::current(). "</td>";
+        return "<td onClick=\"handleSelectedProduct(this)\" style='width:150px;border:1px solid black;'>" . parent::current(). " </td>
+     
+        ";
     }
 
     function beginChildren() {
-        echo "<tr>";
+        echo "<tr >";
+        echo " <td><input type='checkbox' value='add To Cart' id='addToCart'></td>";
     }
 
     function endChildren() {

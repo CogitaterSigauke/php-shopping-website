@@ -131,6 +131,9 @@
       require_once "render.php";
       require_once "pdo.php";
       session_start();
+      echo "HERE IS SID PASSED TO Insert Accessories";
+      echo $_SESSION['login_sid'];
+      
       $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "" ;
 
       if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -155,8 +158,11 @@
           $percentageDiscount = $_POST['prDisc'];      
           $numProductsForDiscount= $_POST['numPrDisc'];       
           $category = "accessories";     
-          $sid = 23;
-          $quantity = $_POST['quantity'];;
+          $sid = $_SESSION['login_sid'];
+          $quantity = $_POST['quantity'];
+        echo "<h1> pid == $pid</h1>";
+        echo ("sid == $sid");
+        echo ("quantity == $quantity");
 
           $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
           $stmt = $conn->prepare($sql);

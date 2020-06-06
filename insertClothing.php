@@ -138,6 +138,8 @@
       require_once "render.php";
       require_once "pdo.php";
       session_start();
+      echo "HERE IS SID PASSED TO Insert clothing";
+      echo $_SESSION['login_sid'];
       $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "" ;
 
       if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -162,7 +164,7 @@
           $percentageDiscount = $_POST['prDisc'];      
           $numProductsForDiscount= $_POST['numPrDisc'];       
           $category =  "clothing";     
-          $sid = 23;
+          $sid = $_SESSION['login_uid'];
           $quantity = $_POST['quantity'];;
 
           $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";

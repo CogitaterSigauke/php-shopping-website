@@ -18,6 +18,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+        <form action="addToCart.php" method = "" id="addToCart">
+            <li class="nav-item">
+              <button type= "submit" value= "addToCart">Add To Cart</button>
+            </li>
+        </form>
         <form action="filterByPrice.php" method = "" id="clothing">
             <li class="nav-item">
               <button type= "submit" value= "clothing">Fiter By price</button>
@@ -28,7 +33,7 @@
               <button type= "submit" value= "signout">Fiter By seller</button>
             </li>
           </form>
-          <form action="filterBySellerandPrice.php" method = "" id="shoes">
+          <form action="filterBySellerAndPrice.php" method = "" id="shoes">
             <li class="nav-item">
               <button type= "submit" value= "signout">Fiter By Seller and Price</button>
             </li>
@@ -50,7 +55,8 @@
   </nav>
 
 <?php
-    require_once "render.php";
+    // require_once "render.php";
+    require_once "render2.php";
     require_once "pdo.php";
 
 
@@ -80,6 +86,18 @@
 
 
 ?>
+
+    <script>
+
+        function handleSelectedProduct(element) {
+
+            console.log("CALLED HERE");
+            element.
+            addToCart()
+            alert(element.innerHTML);
+         
+        }
+    </script>
 
 </body>
 </html>

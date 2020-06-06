@@ -1,18 +1,18 @@
 
 <?php
-     //  require_once "render.php";
+      require_once "render.php";
 
         require_once "pdo.php";
         session_start();
         $username = $password ="";
 
-        if(isset($_SESSION['login_user'])&& isset($_SESSION['login_uid']) && isset($_SESSION['login_name'])){
-          header("location: ./home.php");
+        if(isset($_SESSION['login_user'])&& isset($_SESSION['login_sid']) && isset($_SESSION['login_name'])){
+          header("location: ./home_seller.php");
         }
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
           if(isset($_POST['act'])&& $_POST['act'] == 'login'){
-
+            echo " I am here";
               $username = $_POST['username'];
               $password = $_POST['password'];
             
@@ -41,17 +41,21 @@
                   ":username" => $username,
                   ":password" => $password
                 )); 
-                
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                print_r($row);
 
                 $_SESSION['login_user'] = $row['uname'];
-                $_SESSION['login_uid'] = $row['uid'];
+                $_SESSION['login_sid'] = $row['sid'];
                 $_SESSION['login_name'] = $row['name'];
+                $_SESSION['TEST'] = "===========TEST IS HERE==========";
+                echo "<br/> SID FROM SESSION";
+                echo $_SESSION['login_sid'];
+                echo $_SESSION['login_user'];
+                echo $_SESSION['login_sid'];
+                echo $_SESSION['login_name'];
 
-                echo $_SESSION['login_user'];
-                echo $_SESSION['login_user'];
-                echo $_SESSION['login_user'];
+
                 header("location: ./home_seller.php");
             } else{
               $message = "Password and ID, don\'t match\; Please check your ID and Password!";

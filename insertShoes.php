@@ -80,17 +80,18 @@
     <div class="container">
 
     
-      <form class="a" action="" method = "post" id="insert">
-         <input type="hidden" name="act" value="insert">
+      <form class="a" action="" method = "post" id="insert_shoes">
+         <input type="hidden" name="act" value="insert_shoes">
 
-         <label for="productName"><b>Product Name</b></label>
+         <label for="name"><b>Product Name</b></label>
          <input type="text" placeholder="Enter productName "  name="name" required>
         
-         <label for="category"><b>Select Category of your Product</b></label>
+         
          </br></br>
         
          </br></br>
-         <label for="des"><b>Descirption</b></label>
+      
+         <label for="description"><b>Descirption</b></label>
          <input type="text" placeholder="Enter the product Description"  name="description" required>
 
          <label for="size"><b>Size</b></label>
@@ -99,32 +100,42 @@
          <label for="gender"><b>Gender</b></label>
          <input type="text" placeholder="Enter gender"  name="gender" required>
 
-         <label for="maker"><b>Maker</b></label>
+          <label for="maker"><b>Maker</b></label> 
          <input type="text" placeholder="Enter maker"  name="maker" required>
 
          <label for="brand"><b>Brand</b></label>
          <input type="text" placeholder="Enter brand"  name="brand" required>
+
+         <label for="model"><b>Model</b></label>
+         <input type="text" placeholder="Enter brand"  name="model" required>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
 
          <label for="price"><b>Price</b></label>
          <input type="text" placeholder="Enter price"  name="price" required>
 
          <label for="quantity"><b>Quantity</b></label>
          <input type="text" placeholder="Enter the quantity of your products"  name="quantity" required>
-            
-        <!-- <span className="input-group-text recipe-ul" id="inputGroupFileAddon01" >Upload Image</span> -->
        
-       
-        <label for="percent"><b>percentage Discount</b></label>
+        <label for="prDisc"><b>percentage Discount</b></label>
         <input type="text" placeholder="Enter the discount that you want to give" name="prDisc" required>
       
-        <label for="discount"><b>number of Product Discount</b></label>
-        <input type="text" placeholder="Enter Product Discount" name="NumPrDisc" required>
+        <label for="numPrDisc"><b>number of Products for Discount</b></label>
+        <input type="text" placeholder="Enter Product Discount" name="numPrDisc" required>
         
-        <!-- <input type="file" onChange="handleFileChange()">
-        
-        <button for = "image"  onClick= "handleUpload()">Upload Image</button>
-          </br></br> -->
-         <button class="a" type="submit" value="insert">Submit</button>
+       
+         <button class="a" type="submit" value="insert_shoes">Submit</button>
       
        </form>
        <form class="b" action="home_seller.php" method = "" id="cancel">
@@ -137,13 +148,16 @@
       require_once "render.php";
       require_once "pdo.php";
       session_start();
+      echo "HERE IS SID PASSED TO Insert_shoes shoes";
+      echo $_SESSION['login_sid'];
+      
       $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "" ;
-
+      echo $_POST['sid'];
       if($_SERVER['REQUEST_METHOD'] == "POST") {
-        if(isset($_POST['act'])&& $_POST['act'] == 'insert'){
+        if(isset($_POST['act'])&& $_POST['act'] == 'insert_shoes'){
 
           $name = $_POST['name'];
-
+            
           $sql = "SELECT COUNT(*) FROM Products";
           $stmt = $conn->prepare($sql);
           $stmt->execute();
@@ -160,11 +174,36 @@
           $name = $_POST['name']; 
           $percentageDiscount = $_POST['prDisc'];      
           $numProductsForDiscount= $_POST['numPrDisc'];       
-          $category = "shoes";     
-          $sid = 23;
-          $quantity = $_POST['quantity'];;
+          $category = "shoes";        
+          $sid = $_SESSION['login_sid'];
+          $quantity = $_POST['quantity'];
 
-          $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
+        //   session_start();
+  
+        //   echo "SID ===>";
+        //   echo $_SESSION['login_sid'];
+          // $_SESSION['TEST2'] = "TEST 2 IS HERE";
+          // echo  $_SESSION['TEST'] ;
+          // echo  $_SESSION['TEST2']; 
+          // echo $_SESSION()
+        //   echo '<pre>';
+        //   var_dump($_SESSION);
+        //   echo '</pre>';
+        //   echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
+          
+        // echo "<br/>BEFORE INSERT_shoes";
+        // echo '<pre>';
+        // var_dump($_SESSION);
+        // echo '</pre>';
+
+
+        echo "<h1> pid == $pid</h1>";
+        echo ("sid == $sid  <br/>");
+        echo ("quantity == $quantity <br/>");
+
+
+        // print_r($_SESSION);
+          $sql = "INSERT_shoes INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
           $stmt = $conn->prepare($sql);
           $stmt->execute(array(
               ":pid"         => $pid,                   
@@ -172,9 +211,17 @@
               ":quantity"    => $quantity
           ));
 
-          echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTED');</script>";
+        //   echo "<br/>AFER HASPROD INSERT_shoes";
+          echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTD');</script>";
 
-          $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
+          echo ":pid                    => $pid,              ";     
+          echo ":price                  => $price,            ";     
+          echo ":description            => $description      ";     
+          echo ":image                  => $image            ";     
+          echo ":name                   => $name             ";     
+          echo ":percentageDiscount     => $percentageDiscount";
+          echo ":numProductsForDiscount => $numProductsForDiscount";
+          $sql = "INSERT_shoes INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
           $stmt = $conn->prepare($sql);
           $stmt->execute(array(
               ":pid"                    => $pid,                   
@@ -186,7 +233,7 @@
               ":numProductsForDiscount" => $numProductsForDiscount
           ));
 
-          echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
+          echo "<script type='text/javascript'>alert('PRODUCT INSERT_shoesED');</script>";
 
           if($category == "shoes"){
 
@@ -194,8 +241,14 @@
             $gender = $_POST['gender']; 
             $maker  = $_POST['maker']; 
             $brand   = $_POST['brand']; 
+            $brand   = $_POST['model']; 
 
-              $sql = "INSERT INTO Shoes (pid, size, gender, model, brand) VALUES (:pid, :size, :gender, :model, :brand)";
+            echo "size   == $size  <br/>";
+            echo "gender == $gender<br/>"; 
+            echo "maker  == $maker <br/>";
+            echo "brand  == $brand <br/>"; 
+            echo "model  == $model <br/>"; 
+              $sql = "INSERT_shoes INTO Shoes (pid, size, gender, model, brand) VALUES (:pid, :size, :gender, :model, :brand)";
               $stmt = $conn->prepare($sql);
               $stmt->execute(array(
                   ":pid"   => $pid,                   
@@ -205,11 +258,11 @@
                   ":brand" => $brand  
               ));
               
-              echo "<script type='text/javascript'>alert('SHOES INSERTED');</script>";
+              echo "<script type='text/javascript'>alert('SHOES INSERT_shoesED');</script>";
               header("location: ./home_seller.php");
 
           }
-        }
+       }
       }  
     ?>
 

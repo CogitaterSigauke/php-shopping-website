@@ -31,15 +31,14 @@
     </div>
   </nav>
 
-  <h2>Filter By Price<h2>
-  <form class="a" action="" method = "post" id="filter_price">
-    <input type="hidden" name="act" value="filter_price" id="filter_price">
+  <h2>Filter By Seller<h2>
+  <form class="a" action="" method = "post" id="filterBySeller">
+    <input type="hidden" name="act" value="filterBySeller" id="filterBySeller">
 
-    <label for="price">Enter Price</label>
-    <input type="text" placeholder="Enter Price"  name="price" required>
+    <label for="seller">Enter Seller Name</label>
+    <input type="text" placeholder="Enter seller Name"  name="seller" required>
     <button type= "submit" value= "submit">submit</button>
   </form>
-
 
 
 
@@ -49,25 +48,22 @@
 
     session_start();
         
-    // if($_SERVER['REQUEST_METHOD'] == "POST") {
-    //   if(isset($_POST['act'])&& $_POST['act'] == 'filter_price'){
-        $price = $_POST['price'];
-        // $price = 1053200;   
-        echo $price;
-        $sql = "SELECT * FROM Products WHERE price=:price";
-
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+      if(isset($_POST['act'])&& $_POST['act'] == 'filterBySeller'){
+       
+        $sellerUserName = $_POST['seller'];
+       
+        $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount FROM Products, Seller, HasProd WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid AND Seller.uname=:uname";
         $stmt = $conn->prepare($sql);
         $stmt->execute(array(
-            ":price" => $price
+            ":uname" => $sellerUserName
         ));
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $rows = $stmt->fetchAll();
 
-        echo $price;
-        // ========================VIEW PRODUCTS====================================
-
         $count = count($rows);
-
+       
+        
         if($count){
             echo "<table style='border: solid 1px black;'>";
             echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
@@ -78,8 +74,8 @@
             echo"</table>";
             echo"<br /><br /><br />";
         }
-    //   }
-    // }
+      }
+    }
 
 ?>
 
