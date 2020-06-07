@@ -117,8 +117,8 @@
         <label for="percent"><b>percentage Discount</b></label>
         <input type="text" placeholder="Enter the discount that you want to give" name="prDisc" required>
       
-        <label for="discount"><b>number of Product Discount</b></label>
-        <input type="text" placeholder="Enter Product Discount" name="NumPrDisc" required>
+        <label for="numPrDisc"><b>number of Product Discount</b></label>
+        <input type="text" placeholder="Enter Product Discount" name="numPrDisc" required>
         
         <!-- <input type="file" onChange="handleFileChange()">
         
@@ -146,7 +146,7 @@
         if(isset($_POST['act'])&& $_POST['act'] == 'insert'){
 
           $name = $_POST['name'];
-
+          echo "inside post method insert";
           $sql = "SELECT COUNT(*) FROM Products";
           $stmt = $conn->prepare($sql);
           $stmt->execute();
@@ -164,8 +164,34 @@
           $percentageDiscount = $_POST['prDisc'];      
           $numProductsForDiscount= $_POST['numPrDisc'];       
           $category =  "clothing";     
-          $sid = $_SESSION['login_uid'];
+          $sid = $_SESSION['login_sid'];
           $quantity = $_POST['quantity'];;
+
+          echo "after assigning the variables";
+          
+          $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
+          echo "inserted in products";
+          $stmt = $conn->prepare($sql);
+
+echo "<br/> => pid,                  $pid,                  ";          
+echo "<br/> => price,                $price,                ";
+echo "<br/> => description,          $description,          ";
+echo "<br/> => image,                $image,                ";
+echo "<br/> => name ,                $name ,                ";
+echo "<br/> => percentageDiscount,   $percentageDiscount,   ";
+echo "<br/> => numProductsForDiscount$numProductsForDiscount";          
+          $stmt->execute(array(
+              ":pid"                    => $pid,                   
+              ":price"                  => $price,                 
+              ":description"            => $description,           
+              ":image"                  => $image,                 
+              ":name"                   => $name ,                 
+              ":percentageDiscount"     => $percentageDiscount,     
+              ":numProductsForDiscount" => $numProductsForDiscount
+          ));
+          echo "inserted in products";
+          echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
+          
 
           $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
           $stmt = $conn->prepare($sql);
@@ -174,23 +200,9 @@
               ":sid"         => $sid,                 
               ":quantity"    => $quantity
           ));
-
+          echo "after inserting into has prodcut";
           echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTED');</script>";
 
-          $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
-          $stmt = $conn->prepare($sql);
-          $stmt->execute(array(
-              ":pid"                    => $pid,                   
-              ":price"                  => $price,                 
-              ":description"            => $description,           
-              ":image"                  => $image,                 
-              ":name"                   => $name ,                 
-              ":percentageDiscount"     => $percentageDiscount,
-              ":numProductsForDiscount" => $numProductsForDiscount
-          ));
-
-          echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
-          
           if($category == "clothing"){
 
               $size   = $_POST['size'];  
@@ -209,8 +221,8 @@
               ));
 
               echo "<script type='text/javascript'>alert('CLOTHING INSERTED');</script>";
-              header("location: ./home_seller.php");
-
+              echo "<script>window.location.href='./home_seller.php';</script>";
+              exit;
           }
         }
       }  

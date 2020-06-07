@@ -26,14 +26,21 @@
           <form action="logout.php" method = "" id="signout">
               <button type= "submit" value= "signout">SignOut</button>
           </form>
+          <form action="" method="post" id="addtocart">
+            <input type="hidden" name="act" value="addtocart" >
+              
+              <br/><br/>
+                <input  type="text" name="productToBeAdded" value="" id= "addtocartInput" >
+                <button type= "submit" value=""> Add To Cart</button>
+          </form>
         </ul>
      </div>
     </div>
   </nav>
 
   <h2>Filter By Seller And Price<h2>
-  <form class="a" action="" method = "post" id="filter_price">
-    <input type="hidden" name="act" value="filter_price" id="filter_price">
+  <form class="a" action="" method = "post" id="filter_priceAndSeller">
+    <input type="hidden" name="act" value="filter_priceAndSeller" id="filter_priceAndSeller">
 
     <h4>Enter Price</h4>
     <input type="text" placeholder="Enter Price"  name="price" required>
@@ -53,14 +60,14 @@
     session_start();
         
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-      if(isset($_POST['act'])&& $_POST['act'] == 'filter_price'){
+      if(isset($_POST['act'])&& $_POST['act'] == 'filter_priceAndSeller'){
         $sellerUserName = $_POST['uname'];
         $price = $_POST['price'];
 
         $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount 
             FROM Products, Seller, HasProd 
             WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid 
-                AND Seller.uname=:uname AND price=:price";
+                AND Seller.uname=:uname AND price<:price";
         $stmt = $conn->prepare($sql);
         $stmt->execute(array(
             ":uname" => $sellerUserName,
@@ -80,14 +87,68 @@
             }
             echo"</table>";
             echo"<br /><br /><br />";
-      }
+        }
+        else{
+
+         
+
+            echo("<h2> NO MATCH FOUND </h2>");
+     
+        }
+
 
 
 
       }
     }
 
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+  
+      if(isset($_POST['act'])&& $_POST['act'] == 'addtocart'){
+        
+      
+  
+        $quantity = 1 ;
+        $bid = $_SESSION['login_bid'];
+        $pid = $_POST['productToBeAdded'];
+  
+      
+        $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
+        $stmt = $conn->prepare($sql);
+       
+      
+        $stmt->execute(array(
+            ":pid"   => $pid,                   
+            ":bid"  => $bid,
+            ":quantity" => $quantity 
+        ));
+    
+      }
+    }
+
 ?>
+
+
+<script>
+
+function handleSelectedProduct(element) {
+
+    console.log("CALLED HERE");
+    // element.
+    // addToCart()
+    let pid = element.firstChild.innerHTML;
+
+    let tag = document.getElementById("addtocartInput");
+    tag.setAttribute("value", pid);
+    // tag.setAttribute("name", pid);
+    // tag.innerHTML = "NEW VALUE";
+    // element.firstChild.setAttribute("style", "color: green");
+    // element.firstChild.innerHTML = "NEW VALUE";
+    // tag.click();
+    // alert(.innerHTML);
+ 
+}
+</script>
 
 </body>
 </html>

@@ -26,6 +26,13 @@
           <form action="logout.php" method = "" id="signout">
               <button type= "submit" value= "signout">SignOut</button>
           </form>
+          <form action="" method="post" id="addtocart">
+            <input type="hidden" name="act" value="addtocart" >
+              
+              <br/><br/>
+                <input  type="text" name="productToBeAdded" value="" id= "addtocartInput" >
+                <button type= "submit" value=""> Add To Cart</button>
+          </form>
         </ul>
      </div>
     </div>
@@ -35,26 +42,26 @@
   <form class="a" action="" method = "post" id="filter_price">
     <input type="hidden" name="act" value="filter_price" id="filter_price">
 
-    <label for="price">Enter Price</label>
+    <label for="price">Enter Maximum Price </label>
     <input type="text" placeholder="Enter Price"  name="price" required>
     <button type= "submit" value= "submit">submit</button>
   </form>
+
+  
 
 
 
 
 <?php
-    require_once "render.php";
+    require_once "render2.php";
     require_once "pdo.php";
 
     session_start();
-        
-    // if($_SERVER['REQUEST_METHOD'] == "POST") {
-    //   if(isset($_POST['act'])&& $_POST['act'] == 'filter_price'){
+    
         $price = $_POST['price'];
-        // $price = 1053200;   
-        echo $price;
-        $sql = "SELECT * FROM Products WHERE price=:price";
+       
+        echo "Requseted Product for price: ", $price;
+        $sql = "SELECT * FROM Products WHERE price<:price";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute(array(
@@ -62,9 +69,6 @@
         ));
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $rows = $stmt->fetchAll();
-
-        echo $price;
-        // ========================VIEW PRODUCTS====================================
 
         $count = count($rows);
 
@@ -78,10 +82,53 @@
             echo"</table>";
             echo"<br /><br /><br />";
         }
-    //   }
-    // }
+    
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+  
+      if(isset($_POST['act'])&& $_POST['act'] == 'addtocart'){
+        
+      
+  
+        $quantity = 1 ;
+        $bid = $_SESSION['login_bid'];
+        $pid = $_POST['productToBeAdded'];
+  
+      
+        $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
+        $stmt = $conn->prepare($sql);
+       
+      
+        $stmt->execute(array(
+            ":pid"   => $pid,                   
+            ":bid"  => $bid,
+            ":quantity" => $quantity 
+        ));
+    
+      }
+    }
 
 ?>
+
+<script>
+
+function handleSelectedProduct(element) {
+
+    console.log("CALLED HERE");
+    // element.
+    // addToCart()
+    let pid = element.firstChild.innerHTML;
+
+    let tag = document.getElementById("addtocartInput");
+    tag.setAttribute("value", pid);
+    // tag.setAttribute("name", pid);
+    // tag.innerHTML = "NEW VALUE";
+    // element.firstChild.setAttribute("style", "color: green");
+    // element.firstChild.innerHTML = "NEW VALUE";
+    // tag.click();
+    // alert(.innerHTML);
+ 
+}
+</script>
 
 </body>
 </html>

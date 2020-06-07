@@ -1,9 +1,10 @@
 ALL
 
 get address										**done**
-get user detail from buyer and seller			
+get user detail from buyer and seller			**done**
 insert address									**done**
 create account									**done**
+create shop bank account						**done**
 
 =========================================================
 
@@ -11,11 +12,11 @@ SELLER
 
 insert product									**done**
 delete sold products							
-edit a product									
+edit a product														
 
-get account balance								
-withdraw from account							
-
+get account balance																
+withdraw from account																
+add transaction														
 
 
 get all products """				  		  	**done**
@@ -32,7 +33,7 @@ BUYER
 
 get all ""
 	products 									**done**
-	sellers									
+	sellers										**done**
 
 get all products ""								**done**
 	by catagory									**done**
@@ -40,24 +41,25 @@ get all products ""								**done**
 	by category and price						**done**
 	by category and price and seller			**done**
 
-get all products """								
-	in buyer's cart
-	in buyer's orders
+get all products """							**done**	
+	in buyer's cart								**done**
+	in buyer's orders							**done**
 delete all products from ""
 	buyers cart
 
 Add to cart										**done**
 place an order									**done**
 
-remove from cart
-cancel order
+remove from cart							  	**done**				
 
-nice top have:
+nice top have:													
 
-comment on product	
+comment on product													
 
 
 ==========================================================
 
 
 
+GoIsGood@73
+mysql -u root -p

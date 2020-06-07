@@ -26,6 +26,13 @@
           <form action="logout.php" method = "" id="signout">
               <button type= "submit" value= "signout">SignOut</button>
           </form>
+          <form action="" method="post" id="addtocart">
+            <input type="hidden" name="act" value="addtocart" >
+              
+              <br/><br/>
+                <input  type="text" name="productToBeAdded" value="" id= "addtocartInput" >
+                <button type= "submit" value=""> Add To Cart</button>
+          </form>
         </ul>
      </div>
     </div>
@@ -76,8 +83,51 @@
         }
       }
     }
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+  
+      if(isset($_POST['act'])&& $_POST['act'] == 'addtocart'){
+        
+      
+  
+        $quantity = 1 ;
+        $bid = $_SESSION['login_bid'];
+        $pid = $_POST['productToBeAdded'];
+  
+      
+        $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
+        $stmt = $conn->prepare($sql);
+       
+      
+        $stmt->execute(array(
+            ":pid"   => $pid,                   
+            ":bid"  => $bid,
+            ":quantity" => $quantity 
+        ));
+    
+      }
+    }
 
 ?>
 
+<script>
+
+function handleSelectedProduct(element) {
+
+    console.log("CALLED HERE");
+    // element.
+    // addToCart()
+    let pid = element.firstChild.innerHTML;
+
+    let tag = document.getElementById("addtocartInput");
+    tag.setAttribute("value", pid);
+    // tag.setAttribute("name", pid);
+    // tag.innerHTML = "NEW VALUE";
+    // element.firstChild.setAttribute("style", "color: green");
+    // element.firstChild.innerHTML = "NEW VALUE";
+    // tag.click();
+    // alert(.innerHTML);
+ 
+}
+</script>
 </body>
 </html>

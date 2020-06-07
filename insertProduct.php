@@ -3,23 +3,22 @@
 
         require_once "pdo.php";
         session_start();
-        
+        echo "HERE IS SID PASSED TO Insert clothing";
+        echo $_SESSION['login_sid'];
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-          if(isset($_POST['act'])&& $_POST['act'] == 'insertProduct'){
+          
+          if(isset($_POST['act'])&& $_POST['act'] == 'inserttemp'){
             echo " I am here";
 
             $_SESSION['TEST'] = "===========TEST IS HERE==========";
             echo "<br/> SID FROM SESSION";
             echo $_SESSION['login_sid'];
-            
-
-
-            header("location: ./insertClothing.php");
+            header("location: ./insertTemp.php");
         
               // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
           }
 
-          elseif(isset($_POST['act'])&& $_POST['act'] == 'insertshoes'){
+          if(isset($_POST['act'])&& $_POST['act'] == 'insertshoes'){
             echo " I am here";
 
             $_SESSION['TEST'] = "===========TEST IS HERE==========";
@@ -132,21 +131,23 @@
 
     <div class="container">
         <h1>Insert Product</h1>
-        <form class="a" action="" method = "post" >
-            <input type="hidden" name="act" value="insertProduct" id="insertProduct">
-
-            <label for="insert"><b>Want to insert Product? Select the type of product that you want to insert</b></label>
-            <button class="a" type="submit" value="Seller Account">Clothing</button>
+        <!-- <label for="insertclothing"><b>Want to insert Product? Select the type of product that you want to insert</b></label> -->
           
-        </form>
        
+        
+        <form class="a" action="" method = "post" >
+          <input type="hidden" name="act" value="inserttemp" id="inserttemp">
+
+          <button class="a" type="submit" value="register">Clothing</button>
+        </form>
+           
         <form class="b" action="" method = "post" >
           <input type="hidden" name="act" value="insertshoes" id="insertshoes">
 
           <button class="b" type="submit" value="register">Shoes</button>
         </form>
            
-        <form class="b" action="insertAccessories.php" method = "">
+        <form class="b" action="" method = "post">
           <input type="hidden" name="act" value="insertaccessories" id="insertaccessories">
 
           <button class="c" type="submit" value="register">Accessories </button>

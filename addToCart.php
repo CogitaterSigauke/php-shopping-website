@@ -81,7 +81,6 @@
     
        <form class="a" action="" method = "post" id="insertToCart">
          <input type="hidden" name="act" value="insertToCart">
-
         <label for="product"><b>Product</b></label>
         <input type="text" placeholder="Enter Product" name="product" required>
          <button class="a" type="submit" value="insertToCart">Add to Cart</button>
@@ -105,7 +104,6 @@
       if($_SERVER['REQUEST_METHOD'] == "POST") {
         if(isset($_POST['act'])&& $_POST['act'] == 'insertToCart'){
 
-        
             $uname = $_POST['login_user'];
             $quantity = 50;
 
@@ -114,14 +112,14 @@
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $bid = $row["bid"];
-            
-            $sql = "INSERTToCart INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
+
+            $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
             $stmt = $conn->prepare($sql);
             $stmt->execute(array(
                 ":pid"   => $pid,                   
                 ":bid"  => $bid,
                 ":quantity" => $quantity 
-             ));
+            ));
 
              echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
         }

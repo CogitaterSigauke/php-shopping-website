@@ -6,7 +6,7 @@
           session_start();
           $username = $password ="";
 
-          if(isset($_SESSION['login_user'])&& isset($_SESSION['login_uid']) && isset($_SESSION['login_name'])){
+          if(isset($_SESSION['login_user'])&& isset($_SESSION['login_bid']) && isset($_SESSION['login_name'])){
             header("location: ./home.php");
           }
 
@@ -46,12 +46,11 @@
 
 
                   $_SESSION['login_user'] = $row['uname'];
-                  $_SESSION['login_uid'] = $row['uid'];
+                  $_SESSION['login_bid'] = $row['bid'];
                   $_SESSION['login_name'] = $row['name'];
+                  echo "bid", $_SESSION['login_bid'];
 
-                  echo $_SESSION['login_user'];
-                  echo $_SESSION['login_user'];
-                  echo $_SESSION['login_user'];
+                
                   header("location: ./home.php");
               } else{
                 $message = "Password and ID, don\'t match\; Please check your ID and Password!";

@@ -37,9 +37,13 @@
 <?php
     require_once "render.php";
     require_once "pdo.php";
- 
+    session_start();
+   
     $sellerUserName = $_SESSION['login_user'];
+    
+    
     $sql = "SELECT Products.pid, price, description, image, Products.name, percentageDiscount, numProductsForDiscount FROM Products, Seller, HasProd WHERE Seller.sid=HasProd.sid AND Products.pid=HasProd.pid AND Seller.uname=:uname";
+  
     $stmt = $conn->prepare($sql);
     $stmt->execute(array(
         ":uname" => $sellerUserName
