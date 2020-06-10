@@ -1,7 +1,8 @@
+
 <html>
 
 <head>
-    <title>My Orders</title>
+    <title>Orders</title>
     <style>
       tr {
         margin-bottom: 15px;
@@ -21,7 +22,7 @@
 
       let oid = element.firstChild.innerHTML;
 
-      let tag = document.getElementById("removeFromOrderInput");
+      let tag = document.getElementById("shippedFromOrderInput");
       tag.setAttribute("value", oid);
  
     }
@@ -35,37 +36,39 @@
 </head>
 
 <body>
-<h1>My Orders</h1>
+
  <!-- Navigation -->
  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Shpping website</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Shopping website</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-         <form action="home.php" method = "" id="home">
+         <form action="home_seller.php" method = "" id="home">
               <button type= "submit" value= "signout">Home</button>
           </form>
-          <form action="getAllCategores.php" method = "" id="all_Categories">
-              <button type= "submit" value= "all_Categories">All Categoires</button>
-          </form>
-          <form action="logout.php" method = "" id="signout">
+         <form action="logout.php" method = "" id="signout">
               <button type= "submit" value= "signout">SignOut</button>
           </form>
-          <form action="" method="post" id="removeFromOrder">
-             <input type="hidden" name="act" value="removeFromOrder" >
+          <form action="" method="post" id="shippedFromOrder">
+             <input type="hidden" name="act" value="shippedFromOrder" >
             
             <!-- <br/><br/> -->
-             <input  type="text" name="productToBeRemoved" value="" id= "removeFromOrderInput" >
-             <button type= "submit" value=""> Cancel Order</button>
+             <input  type="text" name="productToBeShipped" value="" id= "shippedFromOrderInput" >
+             <button type= "submit" value=""> Ship Order</button>
           </form>
         </ul>
      </div>
     </div>
   </nav>
+
+  
+
+</body>
+
 <?php
 
 
@@ -75,20 +78,20 @@
     session_start();
    
 
-    //  ======================GET ALL PRODUCTS THE BUYER HAS ORDERED =======================
-    $buyerUserId = $_SESSION['login_bid'];;
+    //  ======================GET ALL PRODUCTS ORDERED FROM SELLER =======================
+    $sellerUserId = $_SESSION['login_sid'];
 
-    $sql = "SELECT OrderTable.oid, status, Products.* FROM OrderOf, Products, OrderTable, HasOrder, Buyer 
+    $sql = "SELECT OrderTable.oid, status, Products.* FROM OrderOf, Products, OrderTable, FromSeller, Seller 
             WHERE OrderOf.pid=Products.pid 
                 AND OrderOf.oid=OrderTable.oid 
-                AND HasOrder.oid=OrderTable.oid 
-                AND Buyer.bid=HasOrder.bid
-                AND Buyer.bid=:bid";
+                AND FromSeller.oid=OrderTable.oid 
+                AND Seller.sid=FromSeller.sid
+                AND Seller.sid=:sid";
 
     $stmt = $conn->prepare($sql);
   
     $stmt->execute(array(
-        ":bid" => $buyerUserId
+        ":sid" => $sellerUserId
     ));
    
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -97,6 +100,11 @@
         $count = count($rows);
        
         if($count){
+           
+            echo "<br/><br/><br/>";
+            $name = $_SESSION['login_name'];
+            echo "<h1></b><em>ORDERS FROM $name </em></b></h1>";
+            echo "<br/><br/>";
             echo "<table style='border: solid 1px black;'>";
             echo "<tr><th>Order Number</th><th>Status</th><th>ProductID</th> <th>Price</th><th>Description</th>
                 <th>Image</th> <th>Name</th> <th>% Discount</th><th>numProducts</th></tr>";
@@ -113,57 +121,26 @@
 
        if($_SERVER['REQUEST_METHOD'] == "POST") {
   
-        if(isset($_POST['act'])&& $_POST['act'] == 'removeFromOrder'){
+        if(isset($_POST['act'])&& $_POST['act'] == 'shippedFromOrder'){
           
-          $oid = $_POST['productToBeRemoved'];
+          $oid = $_POST['productToBeShipped'];
     
           $sql = "UPDATE OrderTable 
                     SET 
-                        status='cancelled'
+                        status='shipped'
                     WHERE
                         oid=:oid";
           $stmt = $conn->prepare($sql);          
           $stmt->execute(array(
               ":oid"   => $oid         
           ));
-          
-          $sql = "SELECT Accounts.aid, balance, OrderTable.price
-                    FROM Accounts, OrderTable, FromSeller, HasAcc
-                    WHERE Accounts.aid=HasAcc.aid 
-                      AND FromSeller.oid=OrderTable.oid
-                      AND HasAcc.sid=FromSeller.sid
-                      AND OrderTable.oid=:oid";
-          $stmt = $conn->prepare($sql);      
-          $stmt->execute(array(
-              ":oid"   => $oid         
-          ));
-
-          $row = $stmt->fetch(PDO::FETCH_ASSOC);
-          $aid = $row['aid'];
-          $finalPriceAfterDiscount = $row['price'];
-          $balance = $row['balance'];
-          $newBalance = $balance - $finalPriceAfterDiscount;
   
-          $sql = "UPDATE Accounts 
-                      SET balance=:newBalance 
-                      WHERE aid=:aid";
-          $stmt = $conn->prepare($sql);
-
-          $stmt->execute(array(
-              ":newBalance" => $newBalance,           
-              ":aid" => $aid
-          ));
-          
-  
-          echo "<script type='text/javascript'>alert('ORDER CANCELLED');</script>";
-          echo "<script>window.location.href='./getOrders.php';</script>";
+          echo "<script type='text/javascript'>alert('ORDER SHIPPED');</script>";
+          echo "<script>window.location.href='./getAllOrdersFromSeller.php';</script>";
           exit;        
         }
       }
 
 ?>
-
-      
-</body>
 
 </html>

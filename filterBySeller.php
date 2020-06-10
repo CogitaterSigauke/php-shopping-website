@@ -1,10 +1,24 @@
 <html>
+<head>
+    <title>Filter by Seller</title>
+    <style>
+      tr {
+        margin-bottom: 15px;
+      }
+      tr.pointer {
+        cursor: crosshair;
+      }
+      tr:hover {
+        background-color: #ccc;
+      }
+    </style>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="assets/css/grayscale.min.css" rel="stylesheet">
 
+</head>
 <body>
 <hr />
  <!-- Navigation -->
@@ -50,7 +64,7 @@
 
 
 <?php
-    require_once "render.php";
+    require_once "render2.php";
     require_once "pdo.php";
 
     session_start();
@@ -103,6 +117,10 @@
             ":bid"  => $bid,
             ":quantity" => $quantity 
         ));
+
+        echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
+
+  
     
       }
     }

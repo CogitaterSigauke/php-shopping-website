@@ -1,10 +1,24 @@
 <html>
+<head>
+    <title>Filter by Seller and Price</title>
+    <style>
+      tr {
+        margin-bottom: 15px;
+      }
+      tr.pointer {
+        cursor: crosshair;
+      }
+      tr:hover {
+        background-color: #ccc;
+      }
+    </style>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="assets/css/grayscale.min.css" rel="stylesheet">
 
+</head>
 <body>
 <hr />
  <!-- Navigation -->
@@ -42,7 +56,7 @@
   <form class="a" action="" method = "post" id="filter_priceAndSeller">
     <input type="hidden" name="act" value="filter_priceAndSeller" id="filter_priceAndSeller">
 
-    <h4>Enter Price</h4>
+    <h4>Enter Maximum Price</h4>
     <input type="text" placeholder="Enter Price"  name="price" required>
     </br>
     <h4>Enter Seller Seller User Name</h4>
@@ -54,7 +68,7 @@
 
 
 <?php
-    require_once "render.php";
+    require_once "render2.php";
     require_once "pdo.php";
 
     session_start();
@@ -104,10 +118,11 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
   
+      // echo "<script type='text/javascript'>alert(' BEFORE ADDED TO CART');</script>";
+
       if(isset($_POST['act'])&& $_POST['act'] == 'addtocart'){
         
       
-  
         $quantity = 1 ;
         $bid = $_SESSION['login_bid'];
         $pid = $_POST['productToBeAdded'];
@@ -122,6 +137,10 @@
             ":bid"  => $bid,
             ":quantity" => $quantity 
         ));
+
+        echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
+
+  
     
       }
     }

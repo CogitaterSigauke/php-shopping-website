@@ -1,10 +1,24 @@
 <html>
+<head>
+    <title>Ger All Products</title>
+    <style>
+      tr {
+        margin-bottom: 15px;
+      }
+      tr.pointer {
+        cursor: crosshair;
+      }
+      tr:hover {
+        background-color: #ccc;
+      }
+    </style>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="assets/css/grayscale.min.css" rel="stylesheet">
 
+</head>
 <body>
 <hr />
  <!-- Navigation -->
@@ -60,7 +74,7 @@
     
         $price = $_POST['price'];
        
-        echo "Requseted Product for price: ", $price;
+        // echo "Requseted Product for price: ", $price;
         $sql = "SELECT * FROM Products WHERE price<:price";
 
         $stmt = $conn->prepare($sql);
@@ -81,6 +95,9 @@
             }
             echo"</table>";
             echo"<br /><br /><br />";
+        }else{
+
+          echo "<h1> NO MATCH FOUND </h1>";
         }
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -103,7 +120,9 @@
             ":bid"  => $bid,
             ":quantity" => $quantity 
         ));
-    
+        echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
+
+  
       }
     }
 

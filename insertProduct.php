@@ -3,46 +3,29 @@
 
         require_once "pdo.php";
         session_start();
-        echo "HERE IS SID PASSED TO Insert clothing";
-        echo $_SESSION['login_sid'];
+        
         if($_SERVER['REQUEST_METHOD'] == "POST") {
           
-          if(isset($_POST['act'])&& $_POST['act'] == 'inserttemp'){
-            echo " I am here";
-
-            $_SESSION['TEST'] = "===========TEST IS HERE==========";
-            echo "<br/> SID FROM SESSION";
-            echo $_SESSION['login_sid'];
-            header("location: ./insertTemp.php");
+          if(isset($_POST['act'])&& $_POST['act'] == 'insertclothing'){
+            
+            header("location: ./insertClothing.php");
         
-              // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
+             
           }
 
           if(isset($_POST['act'])&& $_POST['act'] == 'insertshoes'){
-            echo " I am here";
-
-            $_SESSION['TEST'] = "===========TEST IS HERE==========";
-            echo "<br/> SID FROM SESSION";
-            echo $_SESSION['login_sid'];
             
 
 
             header("location: ./insertShoes.php");
         
-              // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
           }
           elseif(isset($_POST['act'])&& $_POST['act'] == 'insertaccessories'){
-            echo " I am here";
-
-            $_SESSION['TEST'] = "===========TEST IS HERE==========";
-            echo "<br/> SID FROM SESSION";
-            echo $_SESSION['login_sid'];
-            
-
+           
 
             header("location: ./insertAccessories.php");
         
-              // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
+            
           }
         
         
@@ -131,12 +114,10 @@
 
     <div class="container">
         <h1>Insert Product</h1>
-        <!-- <label for="insertclothing"><b>Want to insert Product? Select the type of product that you want to insert</b></label> -->
-          
-       
+      
         
         <form class="a" action="" method = "post" >
-          <input type="hidden" name="act" value="inserttemp" id="inserttemp">
+          <input type="hidden" name="act" value="insertclothing" id="insertclothing">
 
           <button class="a" type="submit" value="register">Clothing</button>
         </form>

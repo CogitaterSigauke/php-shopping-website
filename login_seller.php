@@ -12,7 +12,7 @@
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
           if(isset($_POST['act'])&& $_POST['act'] == 'login'){
-            echo " I am here";
+           
               $username = $_POST['username'];
               $password = $_POST['password'];
             
@@ -28,10 +28,7 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $count = $row["EXISTS(SELECT * FROM Seller WHERE uname = '$username' and pwd = '$password')"];
 
-              echo $count;
-              echo "this is count", $count;  
-
-
+            
               if($count){
 
                 $sql = "SELECT * FROM Seller WHERE uname = :username and pwd = :password";
@@ -43,17 +40,13 @@
                 )); 
 
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                print_r($row);
+               
 
                 $_SESSION['login_user'] = $row['uname'];
                 $_SESSION['login_sid'] = $row['sid'];
                 $_SESSION['login_name'] = $row['name'];
                 $_SESSION['TEST'] = "===========TEST IS HERE==========";
-                echo "<br/> SID FROM SESSION";
-                echo $_SESSION['login_sid'];
-                echo $_SESSION['login_user'];
-                echo $_SESSION['login_sid'];
-                echo $_SESSION['login_name'];
+                
 
 
                 header("location: ./home_seller.php");
@@ -63,7 +56,6 @@
 
             echo "<script type='text/javascript'>alert('$message');</script>";
             
-              // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
           }
         }
      ?>

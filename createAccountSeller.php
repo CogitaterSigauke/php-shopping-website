@@ -119,6 +119,47 @@
                               ":name" => $name,
                               ":email" => $email
                          ));
+                         
+
+                         // // ======================CREATE SHOP ACCOUNT===========================
+                         $sql = "SELECT * FROM Seller WHERE uname = :userName";
+                         $stmt = $conn->prepare($sql);
+                         $stmt->execute(array(
+                   
+                           ":userName" => $userName
+                         
+                         )); 
+         
+                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+                         $sid = $row['sid'];
+                         $sql = "SELECT COUNT(*) FROM Accounts";
+                         $stmt = $conn->prepare($sql);
+                         $stmt->execute();
+                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                         print_r($row);
+                         $count = $row["COUNT(*)"];
+
+                         $aid  = $count + 1; 
+
+                         $sql = "INSERT INTO Accounts (aid, balance) VALUES (:aid, 0)";
+                         $stmt = $conn->prepare($sql);
+                         $stmt->execute(array(
+                             ":aid" => $aid
+                         ));
+
+                       
+                         $sql = "INSERT INTO HasAcc (sid, aid) VALUES (:sid, :aid)";
+                         $stmt = $conn->prepare($sql);
+                         echo "<br/> HERE";
+                         $stmt->execute(array(
+                             ":sid" => $sid,
+                             ":aid" => $aid        
+                         ));
+                         
+                         // ===============================================
 
                          $message = "Registered Succesfully!";
                          echo "<script type='text/javascript'>alert('$message');</script>";

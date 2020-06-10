@@ -50,6 +50,7 @@
         cursor: pointer;
         width: 100%;
       }
+
       button:hover {
         opacity: 0.8;
       }
@@ -77,19 +78,14 @@
    
 
     <div class="container">
-
-    
       <form class="a" action="" method = "post" id="insert">
          <input type="hidden" name="act" value="insert">
 
-         <label for="productName"><b>Product Name</b></label>
+         <label for="name"><b>Product Name</b></label>
          <input type="text" placeholder="Enter productName "  name="name" required>
-        
-         <label for="category"><b>Select Category of your Product</b></label>
+
          </br></br>
-        
-         </br></br>
-         <label for="des"><b>Descirption</b></label>
+         <label for="description"><b>Descirption</b></label>
          <input type="text" placeholder="Enter the product Description"  name="description" required>
 
          <label for="size"><b>Size</b></label>
@@ -103,34 +99,24 @@
 
          <label for="type"><b>Type</b></label>
          <input type="text" placeholder="Enter type"  name="type" required>
-
-
+      
          <label for="price"><b>Price</b></label>
          <input type="text" placeholder="Enter price"  name="price" required>
 
          <label for="quantity"><b>Quantity</b></label>
          <input type="text" placeholder="Enter the quantity of your products"  name="quantity" required>
-            
-        <!-- <span className="input-group-text recipe-ul" id="inputGroupFileAddon01" >Upload Image</span> -->
-       
-       
-        <label for="percent"><b>percentage Discount</b></label>
+          
+        <label for="prDisc"><b>percentage Discount</b></label>
         <input type="text" placeholder="Enter the discount that you want to give" name="prDisc" required>
       
         <label for="numPrDisc"><b>number of Product Discount</b></label>
-        <input type="text" placeholder="Enter Product Discount" name="numPrDisc" required>
-        
-        <!-- <input type="file" onChange="handleFileChange()">
-        
-        <button for = "image"  onClick= "handleUpload()">Upload Image</button>
-          </br></br> -->
-         <button class="a" type="submit" value="insert">Submit</button>
-
+        <input type="text" placeholder="Enter the discount that you want to give" name="numPrDisc" required>
+        <button class="a" type="submit" value="insert">Submit</button>
        </form>
        <form class="b" action="home_seller.php" method = "" id="cancel">
            <button class="c" type="submit" value="register">cancel</button>
         </form>
-      
+
     </div>
 
     <?php
@@ -138,22 +124,22 @@
       require_once "render.php";
       require_once "pdo.php";
       session_start();
-      echo "HERE IS SID PASSED TO Insert clothing";
-      echo $_SESSION['login_sid'];
-      $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "" ;
+      $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "";
+      
+
 
       if($_SERVER['REQUEST_METHOD'] == "POST") {
         if(isset($_POST['act'])&& $_POST['act'] == 'insert'){
 
           $name = $_POST['name'];
-          echo "inside post method insert";
+          
           $sql = "SELECT COUNT(*) FROM Products";
           $stmt = $conn->prepare($sql);
           $stmt->execute();
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-          print_r($row);
+        
           $count = $row["COUNT(*)"];
-          echo $count;
+          
 
 
           $pid  = $count + 1; 
@@ -167,19 +153,10 @@
           $sid = $_SESSION['login_sid'];
           $quantity = $_POST['quantity'];;
 
-          echo "after assigning the variables";
-          
+         
           $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
-          echo "inserted in products";
           $stmt = $conn->prepare($sql);
-
-echo "<br/> => pid,                  $pid,                  ";          
-echo "<br/> => price,                $price,                ";
-echo "<br/> => description,          $description,          ";
-echo "<br/> => image,                $image,                ";
-echo "<br/> => name ,                $name ,                ";
-echo "<br/> => percentageDiscount,   $percentageDiscount,   ";
-echo "<br/> => numProductsForDiscount$numProductsForDiscount";          
+       
           $stmt->execute(array(
               ":pid"                    => $pid,                   
               ":price"                  => $price,                 
@@ -189,10 +166,7 @@ echo "<br/> => numProductsForDiscount$numProductsForDiscount";
               ":percentageDiscount"     => $percentageDiscount,     
               ":numProductsForDiscount" => $numProductsForDiscount
           ));
-          echo "inserted in products";
-          echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
-          
-
+         
           $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
           $stmt = $conn->prepare($sql);
           $stmt->execute(array(
@@ -200,9 +174,6 @@ echo "<br/> => numProductsForDiscount$numProductsForDiscount";
               ":sid"         => $sid,                 
               ":quantity"    => $quantity
           ));
-          echo "after inserting into has prodcut";
-          echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTED');</script>";
-
           if($category == "clothing"){
 
               $size   = $_POST['size'];  
@@ -219,13 +190,15 @@ echo "<br/> => numProductsForDiscount$numProductsForDiscount";
                   ":maker" => $maker,
                   ":type"  => $type  
               ));
-
-              echo "<script type='text/javascript'>alert('CLOTHING INSERTED');</script>";
+              echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
               echo "<script>window.location.href='./home_seller.php';</script>";
               exit;
           }
         }
       }  
+
+
+
     ?>
 
   </body>

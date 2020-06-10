@@ -1,13 +1,13 @@
 <html>
 
 <head>
-    <title>Ger All Products</title>
+    <title>Clothing</title>
     <style>
       tr {
         margin-bottom: 15px;
       }
-      tr.pointer {
-        cursor: crosshair;
+      tr:hover {
+        cursor:pointer;
       }
       tr:hover {
         background-color: #ccc;
@@ -38,20 +38,28 @@
           <form action="logout.php" method = "" id="signout">
               <button type= "submit" value= "signout">SignOut</button>
           </form>
+          <form action="" method="post" id="addtocart">
+             <input type="hidden" name="act" value="addtocart" >
+            
+            <!-- <br/><br/> -->
+             <input  type="text" name="productToBeAdded" value="" id= "addtocartInput" >
+             <button type= "submit" value=""> Add To Cart</button>
+          </form>
+
         </ul>
      </div>
     </div>
   </nav>
 
 <?php
-    require_once "render.php";
+    require_once "render2.php";
     require_once "pdo.php";
 
-    // $category = "accessories";
-
+    session_start();
+   
     // =========================GET ALL PRODUCTS=======================================    
 
-    $sql = "SELECT * FROM Products, Accessories WHERE Products.pid = Clothing.pid";
+    $sql = "SELECT * FROM Products, Clothing WHERE Products.pid = Clothing.pid";
         
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -63,15 +71,50 @@
     $count = count($rows);
 
     if($count){
+        echo "<br/><br/>";
         echo "<table style='border: solid 1px black;'>";
         echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
-            <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
+            <th>Image</th> <th>Name</th><th>Discount</th><th>numProducts</th><th>size</th><th>gender</th><th>maker</th><th>type</th></tr>";
         foreach(new TableRows(new RecursiveArrayIterator($rows)) as $k=>$v) {
             echo $v;
         }
         echo"</table>";
         echo"<br /><br /><br />";
+    }else{
+
+      echo "<br> NO PRODUCTS FOUND</br>";
     }
+
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+  
+      if(isset($_POST['act'])&& $_POST['act'] == 'addtocart'){
+        
+      
+  
+        $quantity = 1 ;
+        $bid = $_SESSION['login_bid'];
+        $pid = $_POST['productToBeAdded'];
+  
+      
+        $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
+        $stmt = $conn->prepare($sql);
+       
+      
+        $stmt->execute(array(
+            ":pid"   => $pid,                   
+            ":bid"  => $bid,
+            ":quantity" => $quantity 
+        ));
+
+        echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
+
+  
+    
+      }
+    }
+
+
+
 
 
 ?>

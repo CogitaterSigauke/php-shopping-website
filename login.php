@@ -28,10 +28,7 @@
               $row = $stmt->fetch(PDO::FETCH_ASSOC);
               $count = $row["EXISTS(SELECT * FROM Buyer WHERE uname = '$username' and pwd = '$password')"];
 
-               echo $count;
-               echo "this is count", $count;  
-
-  
+               
                if($count){
 
                   $sql = "SELECT * FROM Buyer WHERE uname = :username and pwd = :password";
@@ -48,8 +45,7 @@
                   $_SESSION['login_user'] = $row['uname'];
                   $_SESSION['login_bid'] = $row['bid'];
                   $_SESSION['login_name'] = $row['name'];
-                  echo "bid", $_SESSION['login_bid'];
-
+                  
                 
                   header("location: ./home.php");
               } else{
@@ -58,7 +54,6 @@
 
               echo "<script type='text/javascript'>alert('$message');</script>";
               
-              // echo "<script type='text/javascript'>alert('Password and ID, don't match; Please check your ID and Password!');</script>";
             }
           }
      ?>

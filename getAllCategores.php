@@ -1,13 +1,13 @@
 <html>
 
 <head>
-    <title>Ger All Products</title>
+    <title>Products</title>
     <style>
       tr {
         margin-bottom: 15px;
       }
-      tr.pointer {
-        cursor: crosshair;
+      tr:hover {
+        cursor:pointer;
       }
       tr:hover {
         background-color: #ccc;
@@ -23,7 +23,7 @@
 
 <body>
 <hr />
-<h1>All Categories</h1>
+
  <!-- Navigation -->
  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -106,6 +106,9 @@
     $count = count($rows);
     
     if($count){
+      echo "<br/><br/>";
+      echo "<h1></b><em>ALL PRODUCTS</em></b></h1>";
+      echo "<br/>";
         echo "<table style='border: solid 1px black;'>";
         echo "<tr><th>ProductID</th> <th>Price</th><th>Description</th>
             <th>Image</th> <th>Name</th> <th>percentageDiscount</th><th>numProductsForDiscount</th></tr>";
@@ -115,38 +118,28 @@
         echo"</table>";
         echo"<br /><br /><br />";
    }
-   echo "bid", $_SESSION['login_bid'];
-    
+ 
    if($_SERVER['REQUEST_METHOD'] == "POST") {
   
     if(isset($_POST['act'])&& $_POST['act'] == 'addtocart'){
-      echo "pid====",  $_POST['productToBeAdded'];
-      echo "inside php";
-      echo "bid", $_SESSION['login_bid'];
-    
+
 
       $quantity = 1 ;
       $bid = $_SESSION['login_bid'];
       $pid = $_POST['productToBeAdded'];
 
-      echo "HERE";
-      echo "bid", $_SESSION['login_bid'];
+
     
       $sql = "INSERT INTO Cart (pid, bid, quantity) VALUES (:pid, :bid, :quantity)";
       $stmt = $conn->prepare($sql);
-      echo "HERE";
-      echo "<br/> bid $bid";
-      echo "<br/> quantity $quantity";
-      echo "<br/> pid $pid";
-      echo "bid", $_SESSION['login_bid'];
+      
     
       $stmt->execute(array(
           ":pid"   => $pid,                   
           ":bid"  => $bid,
           ":quantity" => $quantity 
       ));
-      // print_r($row);
-      echo "bid", $_SESSION['login_bid'];
+      
     
       echo "<script type='text/javascript'>alert('ADDED TO CART');</script>";
 
@@ -161,19 +154,13 @@
 
         function handleSelectedProduct(element) {
 
-            console.log("CALLED HERE");
-            // element.
-            // addToCart()
+            
+            
             let pid = element.firstChild.innerHTML;
 
             let tag = document.getElementById("addtocartInput");
             tag.setAttribute("value", pid);
-            // tag.setAttribute("name", pid);
-            // tag.innerHTML = "NEW VALUE";
-            // element.firstChild.setAttribute("style", "color: green");
-            // element.firstChild.innerHTML = "NEW VALUE";
-            // tag.click();
-            // alert(.innerHTML);
+           
          
         }
     </script>

@@ -148,11 +148,11 @@
       require_once "render.php";
       require_once "pdo.php";
       session_start();
-      echo "HERE ============IS SID PASSED TO Insert_shoes shoes";
-      echo $_SESSION['login_sid'];
+      // echo "HERE ============IS SID PASSED TO Insert_shoes shoes";
+      // echo $_SESSION['login_sid'];
       
       $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "" ;
-      echo $_POST['sid'];
+      // echo $_POST['sid'];
       if($_SERVER['REQUEST_METHOD'] == "POST") {
         if(isset($_POST['act'])&& $_POST['act'] == 'insert_shoes'){
 
@@ -162,10 +162,10 @@
           $stmt = $conn->prepare($sql);
           $stmt->execute();
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-          print_r($row);
+          // print_r($row);
           $count = $row["COUNT(*)"];
-          echo $count;
-          echo "fetched the product shoes";
+          // echo $count;
+          // echo "fetched the product shoes";
 
 
           $pid  = $count + 1; 
@@ -178,46 +178,10 @@
           $category = "shoes";        
           $sid = $_SESSION['login_sid'];
           $quantity = $_POST['quantity'];
-          echo "saved the produt in variables";
-        //   session_start();
-  
-        //   echo "SID ===>";
-        //   echo $_SESSION['login_sid'];
-          // $_SESSION['TEST2'] = "TEST 2 IS HERE";
-          // echo  $_SESSION['TEST'] ;
-          // echo  $_SESSION['TEST2']; 
-          // echo $_SESSION()
-        //   echo '<pre>';
-        //   var_dump($_SESSION);
-        //   echo '</pre>';
-        //   echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
-          
-        // echo "<br/>BEFORE INSERT_shoes";
-        // echo '<pre>';
-        // var_dump($_SESSION);
-        // echo '</pre>';
-
-
-        // echo "<h1> pid == $pid</h1>";
-        // echo ("sid == $sid  <br/>");
-        // echo ("quantity == $quantity <br/>");
-
-
-        // print_r($_SESSION);
-
-          // echo "<br/>AFER HASPROD INSERT_shoes";
-          // echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTD');</script>";
-
-          // echo ":pid                    => $pid,              ";     
-          // echo ":price                  => $price,            ";     
-          // echo ":description            => $description      ";     
-          // echo ":image                  => $image            ";     
-          // echo ":name                   => $name             ";     
-          // echo ":percentageDiscount     => $percentageDiscount";
-          // echo ":numProductsForDiscount => $numProductsForDiscount";
+         
+      
           $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
           $stmt = $conn->prepare($sql);
-          echo "after inserting into products with price and pid";
           
           $stmt->execute(array(
               ":pid"                    => $pid,                   
@@ -229,26 +193,18 @@
               ":numProductsForDiscount" => $numProductsForDiscount
           ));
 
-          echo "<script type='text/javascript'>alert('PRODUCT INSERT_shoesED');</script>";
-
+        
           $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
-          echo "has the sql statment";
+          
           $stmt = $conn->prepare($sql);
-          echo "After preparing the sql statement ";
-          echo "<h1> pid == $pid</h1>";
-          echo ("sid == $sid  <br/>");
-          echo ("quantity == $quantity <br/>");
+         
   
           $stmt->execute(array(
               ":pid"         => $pid,                   
               ":sid"         => $sid,                 
               ":quantity"    => $quantity
           ));
-          echo "after inserting the product";
-
-          echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTED');</script>";
-
-
+          
 
           if($category == "shoes"){
 
@@ -258,12 +214,7 @@
             $brand   = $_POST['brand']; 
             $model   = $_POST['model']; 
 
-            echo "size   == $size  <br/>";
-            echo "gender == $gender<br/>"; 
-            echo "maker  == $maker <br/>";
-            echo "brand  == $brand <br/>"; 
-            echo "model  == $model <br/>"; 
-            echo "about to insert into shoe";
+           
             $sql = "INSERT INTO Shoes (pid, size, gender, model, brand) VALUES (:pid, :size, :gender, :model, :brand)";
            
             $stmt = $conn->prepare($sql);
@@ -274,9 +225,9 @@
                 ":model" => $model, 
                 ":brand" => $brand  
             ));
-            echo "after  insert into shoe";
-            echo "<script type='text/javascript'>alert('Yeahhhh..SHOES INSERTED');</script>";
-            // header("location: ./home_seller.php");
+           
+            echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
+           
             echo "<script>window.location.href='./home_seller.php';</script>";
             exit;
           }

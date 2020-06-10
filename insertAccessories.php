@@ -133,9 +133,7 @@
       require_once "render.php";
       require_once "pdo.php";
       session_start();
-      echo "HERE IS SID PASSED TO Insert Accessories";
-      echo $_SESSION['login_sid'];
-      
+     
       $description = $category = $price = $quantity = $image = $name =  $percentageDiscount =   $numProductsForDiscount= "" ;
 
       if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -147,10 +145,9 @@
           $stmt = $conn->prepare($sql);
           $stmt->execute();
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
-          print_r($row);
+          
           $count = $row["COUNT(*)"];
-          echo $count;
-
+          
 
           $pid  = $count + 1; 
           $price =$_POST['price'];   
@@ -158,31 +155,17 @@
           $image ="No image";         
           $name = $_POST['name']; 
           $percentageDiscount = $_POST['prDisc'];   
-          // echo "<h1> pid == $_POST['numPrDisc']</h1>";
-          echo "Here isnum of products =======";
-          echo  $_POST['numPrDisc'];
+          
           $numProductsForDiscount= $_POST['numPrDisc'];       
           $category = "accessories";     
           $sid = $_SESSION['login_sid'];
           $quantity = $_POST['quantity'];
-        echo "<h1> pid == $pid</h1>";
-        echo ("sid == $sid");
-        echo ("quantity == $quantity");
-        echo ("quantity9999999999 == $quantity");
-        echo ("quantity == $quantity");
-        echo ("quantity == $quantity");
+        
           
         $sql = "INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (:pid, :price, :description, :image, :name, :percentageDiscount, :numProductsForDiscount)";
-        echo "insert sql";
+        
         $stmt = $conn->prepare($sql);
-        echo "after prepare stmt sql";
-echo "<br/> 'pid,                  ' ==>  $pid,                  ";
-echo "<br/> 'price,                ' ==>  $price,                ";
-echo "<br/> 'description,          ' ==>  $description,          ";
-echo "<br/> 'image,                ' ==>  $image,                ";
-echo "<br/> 'name ,                ' ==>  $name ,                ";
-echo "<br/> 'percentageDiscount,   ' ==>  $percentageDiscount,   ";
-echo "<br/> 'numProductsForDiscount' ==>  $numProductsForDiscount";
+        
 
         $stmt->execute(array(
             ":pid"                    => $pid,                   
@@ -193,9 +176,7 @@ echo "<br/> 'numProductsForDiscount' ==>  $numProductsForDiscount";
             ":percentageDiscount"     => $percentageDiscount,     
             ":numProductsForDiscount" => $numProductsForDiscount
         ));
-        echo "after execute";
-        echo "<script type='text/javascript'>alert('PRODUCT INSERTED');</script>";
-
+       
 
           $sql = "INSERT INTO HasProd (pid, sid, quantity) VALUES (:pid, :sid, :quantity)";
          
@@ -206,9 +187,7 @@ echo "<br/> 'numProductsForDiscount' ==>  $numProductsForDiscount";
               ":sid"         => $sid,                 
               ":quantity"    => $quantity
           ));
-          echo "after preparing before echo";
-          echo "<script type='text/javascript'>alert('HAS PRODUCT INSERTED');</script>";
-
+          
          
          if($category == "accessories"){
 
@@ -224,7 +203,7 @@ echo "<br/> 'numProductsForDiscount' ==>  $numProductsForDiscount";
               ));
 
               echo "<script type='text/javascript'>alert('ACCESSORIES INSERTED');</script>";
-              // header("location: ./home_seller.php");
+             
               echo "<script>window.location.href='./home_seller.php';</script>";
               exit;
           }

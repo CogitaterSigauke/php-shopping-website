@@ -11,14 +11,10 @@ create shop bank account						**done**
 SELLER
 
 insert product									**done**
-delete sold products							
-edit a product														
+ship orders 									**done**
 
-get account balance																
-withdraw from account																
-add transaction														
-
-
+get account balance								**done**													
+											
 get all products """				  		  	**done**
 	ordered from seller                			**done**
 	ordered from seller and not shipped			**done**
@@ -49,17 +45,11 @@ delete all products from ""
 
 Add to cart										**done**
 place an order									**done**
+cancel an order									**done**
 
 remove from cart							  	**done**				
 
-nice top have:													
-
-comment on product													
+									
 
 
 ==========================================================
-
-
-
-GoIsGood@73
-mysql -u root -p

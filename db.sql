@@ -155,22 +155,6 @@ CREATE TABLE FromSeller(
     PRIMARY KEY (oid, sid)
 );
 
-
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000001, 52003,   "This is a good product", "no image", "PC",     80, 55);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000002, 10520,   "This is a good product", "no image", "Laptop",  01, 5);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000003, 15203,   "This is a good product", "no image", "Printer", 02, 5);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000004, 145200,  "This is a good product", "no image", "PC",      03, 3);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000005, 1052300, "This is a good product", "no image", "Laptop",  04, 3);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000006, 72030,   "This is a good product", "no image", "Printer", 05, 7);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000007, 75200,   "This is a good product", "no image", "Laptop",  06, 7);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000008, 60500,   "This is a good product", "no image", "PC",      07, 7);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000009, 202300,  "This is a good product", "no image", "Laptop",  08, 3);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000010, 526004,  "This is a good product", "no image", "Printer", 09, 5);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000011, 1053200, "This is a good product", "no image", "Laptop",  10, 5);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000012, 205500,  "This is a good product", "no image", "PC",      11, 5);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000013, 62053200,"This is a good product", "no image", "Laptop",  12, 5);
-INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (12000014, 8045200, "This is a good product", "no image", "Printer", 13, 5);
-
 INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200001, 1053200, "This is a good shoe", "no shoe image", "shoes", 10, 5);
 INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200002, 205500,  "This is a good shoe", "no shoe image", "shoes", 11, 5);
 INSERT INTO Products (pid, price, description, image, name, percentageDiscount, numProductsForDiscount) VALUES (1200003, 62053200,"This is a good shoe", "no shoe image", "shoes", 12, 5);
@@ -206,15 +190,7 @@ DROP USER IF EXISTS 'grader'@'%';
 
 -- ===========MY SQL===========
 
--- CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
--- GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
--- ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
-
--- ===========MARIA DB=================
-
-SET old_passwords=0;
-GRANT SELECT ON rcdb.* TO 'grader'@'%' IDENTIFIED BY 'allowme';
+CREATE USER 'grader'@'%' IDENTIFIED BY 'allowme'; 
+GRANT ALL PRIVILEGES ON rcdb.* to 'grader'@'%';
 ALTER USER 'grader'@'%' IDENTIFIED WITH mysql_native_password BY "allowme";
 
--- CREATE USER 'shopingweb'@'%' identified by 'shop4Me@'; 
--- grant all privileges on rcdb.* to 'shopingweb'@'%';
